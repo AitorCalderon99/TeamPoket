@@ -3,7 +3,7 @@
 
 <template>
   <div id="nav">
-      <img alt="Vue logo" src="./assets/logo.png" />
+      <img alt="Vue logo" src="/logo_black.png" />
       <div class="navbar">
         <router-link :to="{ name: 'Home' }">Home</router-link>
         <router-link :to="{ name: 'About' }">About</router-link>
