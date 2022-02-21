@@ -2,18 +2,27 @@
 </script>
 
 <template>
-  <div class="nav">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow p-3 mb-5 bg-body rounded">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img alt="Vue logo" src="/logo_black.png" id="logo" />
+      </a>
+      <div class="input-group">
+        <input type="text"  name="" placeholder="Buscar..." aria-label="Search"  class="form-control form-control-dark" id="buscador"/>
+        <span class="input-group-text" id="basic-addon1">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </span>
+      </div>
+    </div>
+  </nav>
+  <!-- <div class="nav">
     <img alt="Vue logo" src="/logo_black.png" id="logo" />
     <div class="navbar">
-      <!-- <router-link :to="{ name: 'Home' }">Home</router-link>
-      <router-link :to="{ name: 'About' }">About</router-link> -->
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+       <router-link :to="{ name: 'Home' }">Home</router-link>
+      <router-link :to="{ name: 'About' }">About</router-link>
     </div>
   </div>
-  <router-view />
+  <router-view />-->
 </template>
 
 <style>
@@ -40,27 +49,8 @@
   max-height: auto;
 }
 
-.navbar {
-  display: flex;
-  justify-content: center;
-  align-items: baseline;
-  gap: 0.5rem;
+.form-control {
+  border-radius: 0.75rem;
 }
 
-.navbar a {
-  text-decoration: none;
-  font-size: 1.5rem;
-  color: #2c3e50;
-  border-radius: 3px;
-  padding: 0.5rem 1rem;
-  transition: all 0.3s ease;
-}
-
-.navbar a:hover {
-  background-color: #dddddd;
-}
-
-.navbar a:active {
-  background-color: #bbbbbb;
-}
 </style>
