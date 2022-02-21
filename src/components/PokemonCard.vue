@@ -19,6 +19,7 @@
         <router-link :to="{name: 'Detalle', params: {id: id}}">
             <h1>{{state.detalle.name}}</h1>
             <img :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/'+id+'.png'" :alt="'foto de '+state.detalle.name">
+            <p>{{state.detalle.types[0]}}</p>
         </router-link>
     </div>
 </template>
@@ -27,6 +28,12 @@
     .card{
         border: solid 2px #dddddd;
         width: 15rem;
+        transition: 0.4s;
+    }
+
+    .card:hover{
+        transform: scale(1.3);
+        z-index: 3;
     }
 
     .card img {
