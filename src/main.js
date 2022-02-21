@@ -35,12 +35,10 @@ app.mount('#app')
 */
 
 import { createApp } from 'vue/dist/vue.esm-bundler';
-import Cartas from './components/Cartas.vue'
 import App from './App.vue'
+import router from "./router";
 
-const app = createApp({})
-
-app.component('App', App)
-app.component('Cartas', Cartas)
+const app = createApp(App)
+app.use(router)
 
 app.mount('#app')

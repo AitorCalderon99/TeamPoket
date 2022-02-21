@@ -1,4 +1,6 @@
 <script setup>
+  import Home from './views/Home.vue';
+
 </script>
 
 <template>
@@ -15,14 +17,7 @@
       </div>
     </div>
   </nav>
-  <!-- <div class="nav">
-    <img alt="Vue logo" src="/logo_black.png" id="logo" />
-    <div class="navbar">
-       <router-link :to="{ name: 'Home' }">Home</router-link>
-      <router-link :to="{ name: 'About' }">About</router-link>
-    </div>
-  </div>
-  <router-view />-->
+  <router-view />
 </template>
 
 <style>
