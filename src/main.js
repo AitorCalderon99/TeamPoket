@@ -35,7 +35,7 @@ app.mount('#app')
 */
 
 import { createApp } from 'vue/dist/vue.esm-bundler';
-import Cartas from './components/prueba.vue'
+import Cartas from './components/Cartas.vue'
 import App from './App.vue'
 
 const app = createApp({})
