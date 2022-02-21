@@ -23,7 +23,7 @@
         <router-link :to="{name: 'Detalle', params: {id: id}}">
             <h1>{{state.detalle.name}}</h1>
             <img :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/'+id+'.png'" :alt="'foto de '+state.detalle.name">
-            <pre>{{state.detalle.types}}</pre>
+            <pre>{{ state.detalle.types }}</pre>
         </router-link>
     </div>
 </template>
