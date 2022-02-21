@@ -13,7 +13,7 @@
 
 <template>
     <div class="card-container">
-        <PokemonCard v-for="pokemon in pokemons.value" :pokemon="pokemon"></PokemonCard>
+        <PokemonCard v-for="(pokemon, key) in pokemons.value" :key="key" :pokemon="pokemon"></PokemonCard>
     </div>
 </template>
 
