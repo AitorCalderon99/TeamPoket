@@ -1,18 +1,25 @@
 <script setup>
-    const props = defineProps(['pokemon']);
-    const pokemon = props.pokemon;
+    import { reactive } from 'vue';
+    const props = defineProps(['id']);
+    const id = props.id;
 
-    fetch(pokemon.url)
-        .then( (res) => res.json() )
-        .then( (json) => (pokemon.detalle = json) )
+    // Los datos extraidos del metodo fetch se guardarán en la array state.detalle
+    const state = reactive({
+        detalle:[]
+    });
+
+    fetch("https://pokeapi.co/api/v2/pokemon/"+id)
+        .then( (response) => response.json() )
+        .then( (data) => (state.detalle=data) )
         .catch( (error) => (console.error(error.message)))
 </script>
 
 <template>
     <div class="card">
-        <img :src="pokemon.detalle.sprites.front_default" :alt="'foto de '+pokemon.name">
-        <h1>{{pokemon.name}}</h1>
-        <!-- <a :href="pokemon.url">link</a> -->
+        <router-link :to="{name: 'Detalle', params: {id: id}}">
+            <h1>{{state.detalle.name}}</h1>
+            <img :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/'+id+'.png'" :alt="'foto de '+state.detalle.name">
+        </router-link>
     </div>
 </template>
 
