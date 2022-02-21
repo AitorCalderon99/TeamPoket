@@ -3,11 +3,15 @@
 
 <template>
   <div class="nav">
-      <img alt="Vue logo" src="/logo_black.png" id="logo" />
-      <div class="navbar">
-        <router-link :to="{ name: 'Home' }">Home</router-link>
-        <router-link :to="{ name: 'About' }">About</router-link>
-      </div>
+    <img alt="Vue logo" src="/logo_black.png" id="logo" />
+    <div class="navbar">
+      <!-- <router-link :to="{ name: 'Home' }">Home</router-link>
+      <router-link :to="{ name: 'About' }">About</router-link> -->
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
   </div>
   <router-view />
 </template>
@@ -40,7 +44,7 @@
   display: flex;
   justify-content: center;
   align-items: baseline;
-  gap: .5rem;
+  gap: 0.5rem;
 }
 
 .navbar a {
@@ -48,8 +52,8 @@
   font-size: 1.5rem;
   color: #2c3e50;
   border-radius: 3px;
-  padding: .5rem 1rem;
-  transition: all .3s ease;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
 }
 
 .navbar a:hover {
