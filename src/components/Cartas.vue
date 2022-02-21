@@ -32,6 +32,7 @@ export default{
         <div class="card" v-for="(pokemon, key) in pokemons" :key="key">
             <h1>{{pokemon.name}}</h1>
             <img :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'+(key+1)+'.png'" alt="">
+            <p>{{pokemon.base}}</p>
         </div>
     </div>
 </template>
