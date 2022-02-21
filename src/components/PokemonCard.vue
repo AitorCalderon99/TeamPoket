@@ -1,18 +1,23 @@
 <script setup>
-    const props = defineProps(['pokemon']);
-    const pokemon = props.pokemon;
+    import { reactive } from 'vue';
 
-    fetch(pokemon.url)
-        .then( (res) => res.json() )
-        .then( (json) => (pokemon.detalle = json) )
+    const url = "https://pokeapi.co/api/v2/pokemon/"
+    const props = defineProps(['id']);
+    const id = props.id;
+    const state = reactive({
+        detalle:[]
+    });
+
+    fetch("https://pokeapi.co/api/v2/pokemon/"+id)
+        .then( (response) => response.json() )
+        .then( (data) => (state.detalle=data) )
         .catch( (error) => (console.error(error.message)))
 </script>
 
 <template>
     <div class="card">
-        <img :src="pokemon.detalle.sprites.front_default" :alt="'foto de '+pokemon.name">
-        <h1>{{pokemon.name}}</h1>
-        <!-- <a :href="pokemon.url">link</a> -->
+        <h1>{{state.detalle.name}}</h1>
+        <img :src="state.detalle.sprites.front_default" alt="">
     </div>
 </template>
 
