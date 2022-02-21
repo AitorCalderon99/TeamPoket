@@ -10,7 +10,10 @@
 
     fetch("https://pokeapi.co/api/v2/pokemon/"+id)
         .then( (response) => response.json() )
-        .then( (data) => (state.detalle=data) )
+        .then( (data) => {
+            data.name =
+            state.detalle=data
+        })
         .catch( (error) => (console.error(error.message)))
 </script>
 
