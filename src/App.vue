@@ -6,9 +6,9 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light shadow p-3 mb-5 bg-body rounded">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">
+      <router-link class="navbar-brand" :to="{name: 'Home'}">
         <img alt="Vue logo" src="/logo_black.png" id="logo" />
-      </a>
+      </router-link>
       <div class="input-group border-3">
         <input type="text"  name="" placeholder="Buscar..." aria-label="Search"  class="form-control border-0" id="buscador"/>
         <span class="input-group-text border-0" id="basic-addon1">

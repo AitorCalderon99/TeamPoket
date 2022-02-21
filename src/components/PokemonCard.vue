@@ -10,7 +10,11 @@
 
     fetch("https://pokeapi.co/api/v2/pokemon/"+id)
         .then( (response) => response.json() )
-        .then( (data) => (state.detalle=data) )
+        .then( (data) => {
+            // Poner la primera letra del nombre en mayus
+            data.name = data.name.charAt(0).toUpperCase() + data.name.slice(1)
+            state.detalle=data
+        })
         .catch( (error) => (console.error(error.message)))
 </script>
 
@@ -19,14 +23,25 @@
         <router-link :to="{name: 'Detalle', params: {id: id}}">
             <h1>{{state.detalle.name}}</h1>
             <img :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/'+id+'.png'" :alt="'foto de '+state.detalle.name">
+            <pre>{{state.detalle.types}}</pre>
         </router-link>
     </div>
 </template>
 
 <style>
+    a{
+        text-decoration: none;
+        color: black;
+    }
     .card{
         border: solid 2px #dddddd;
         width: 15rem;
+        transition: 0.4s;
+    }
+
+    .card:hover{
+        transform: scale(1.3);
+        z-index: 3;
     }
 
     .card img {

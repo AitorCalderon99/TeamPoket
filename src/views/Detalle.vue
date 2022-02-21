@@ -40,17 +40,19 @@ fetch("https://pokeapi.co/api/v2/pokemon/" + id)
                             aria-valuemin="0"
                             aria-valuemax="100"
                             id="tamañoBarra"
-                        >{{ state.detalle.stats[0].base_stat}}</div>
-                    </div> 
+                        >{{ state.detalle.stats[0].base_stat }}</div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <!-- <pre>{{ id }}</pre> -->
     </div>
-</template>
-<style>
-#tamañoBarra {
-    width:45%;
-}
-</style>
+    <!-- <pre>{{ id }}</pre> -->
+    <template>
+        <div>
+            <pre>{{ id }}</pre>
+            <img
+                :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' + id + '.png'"
+                :alt="'foto de ' + state.detalle.name"
+            />
+        </div>
+    </template>
