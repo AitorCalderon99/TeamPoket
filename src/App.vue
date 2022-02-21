@@ -7,9 +7,9 @@
       <a class="navbar-brand" href="#">
         <img alt="Vue logo" src="/logo_black.png" id="logo" />
       </a>
-      <div class="input-group">
-        <input type="text"  name="" placeholder="Buscar..." aria-label="Search"  class="form-control form-control-dark" id="buscador"/>
-        <span class="input-group-text" id="basic-addon1">
+      <div class="input-group border-3">
+        <input type="text"  name="" placeholder="Buscar..." aria-label="Search"  class="form-control border-0" id="buscador"/>
+        <span class="input-group-text border-0" id="basic-addon1">
           <i class="fa-solid fa-magnifying-glass"></i>
         </span>
       </div>
@@ -47,6 +47,11 @@
 #logo {
   width: 20rem;
   max-height: auto;
+}
+
+#buscador,
+#basic-addon1 {
+  background-color: #f6f6f6;
 }
 
 .form-control {
