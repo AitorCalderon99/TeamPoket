@@ -46,8 +46,6 @@ fetch("https://pokeapi.co/api/v2/pokemon/" + id)
             </div>
         </div>
     </div>
-    <!-- <pre>{{ id }}</pre> -->
-    <template>
         <div>
             <pre>{{ id }}</pre>
             <img
