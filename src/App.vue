@@ -41,7 +41,7 @@ function lupa(){
 
 </template>
 
-<style scoped>
+<style>
 @import "./assets/base.css";
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
