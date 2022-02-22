@@ -19,6 +19,7 @@
 <template>
     <div class="card">
         <router-link :to="{name: 'Detalle', params: {id: id}}">
+            <pre>{{id}}</pre>
             <h1>{{detalle.name}}</h1>
             <img class="pokemon" :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/'+id+'.png'" :alt="'foto de '+detalle.name">
             <div class="cajatipos" >
