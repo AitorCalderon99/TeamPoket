@@ -30,6 +30,7 @@ function getNextUser() {
   window.onscroll = () => {
     let bottomOfWindow = document.documentElement.scrollHeight - document.documentElement.scrollTop <= document.documentElement.clientHeight;
     console.log(bottomOfWindow);
+
     if (bottomOfWindow) {
       axios.get(url + numb).then(response => {
         response.data.results.forEach(pokemon => {
@@ -69,9 +70,7 @@ const PokemonCard = defineAsyncComponent({
 
 <template>
   <div class="card-container">
-    <TransitionGroup appear>
       <PokemonCard v-for="pokemon in allPokemons" :id="pokemon.id" :key="pokemon.id"></PokemonCard>
-    </TransitionGroup>
   </div>
 </template>
 
