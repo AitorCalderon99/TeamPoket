@@ -1,15 +1,21 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Home from "../views/Home.vue";
 import Detalle from "../views/Detalle.vue"
+import NotFound from "../views/NotFound.vue"
 
 const routes = [
+  { 
+    path: '/:pathMatch(.*)*', 
+    name: 'NotFound', 
+    component: NotFound 
+  },
   {
     path: "/",
     name: "Home",
     component: Home,
   },
   {
-    path: "/:id",
+    path: "/:id(\\d+)",
     name: "Detalle",
     component: Detalle,
     props: true,
