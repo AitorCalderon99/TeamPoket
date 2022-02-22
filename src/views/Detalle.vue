@@ -30,17 +30,86 @@ fetch("https://pokeapi.co/api/v2/pokemon/" + id)
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-lg-4">
-                <label>Vida</label>
-                <div class="progress">
-                    <div
-                        class="progress-bar progress-bar-striped progress-bar-animated"
-                        role="progressbar"
-                        aria-valuenow="45"
-                        aria-valuemin="0"
-                        aria-valuemax="65"
-                        style="width: 69%"
-                    >{{ state.detalle.stats[0].base_stat }}</div>
+            <div class="d-flex align-items-center">
+                <div class="col-12 col-lg-4">
+                    <div class="row">
+                        <label class="col-3">Vida</label>
+                        <div class="progress col-8">
+                            <div
+                                class="progress-bar progress-bar-striped progress-bar-animated"
+                                role="progressbar"
+                                aria-valuenow="45"
+                                aria-valuemin="0"
+                                aria-valuemax="65"
+                                style="width: 69%"
+                            >{{ state.detalle.stats[0].base_stat }}</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-3">Ataque</label>
+                        <div class="progress col-8">
+                            <div
+                                class="progress-bar progress-bar-striped progress-bar-animated"
+                                role="progressbar"
+                                aria-valuenow="49"
+                                aria-valuemin="0"
+                                aria-valuemax="65"
+                                style="width: 73%"
+                            >{{ state.detalle.stats[1].base_stat }}</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-3">Defensa</label>
+                        <div class="progress col-8">
+                            <div
+                                class="progress-bar progress-bar-striped progress-bar-animated"
+                                role="progressbar"
+                                aria-valuenow="49"
+                                aria-valuemin="0"
+                                aria-valuemax="65"
+                                style="width: 73%"
+                            >{{ state.detalle.stats[2].base_stat }}</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-3">At. especial</label>
+                        <div class="progress col-8">
+                            <div
+                                class="progress-bar progress-bar-striped progress-bar-animated"
+                                role="progressbar"
+                                aria-valuenow="65"
+                                aria-valuemin="0"
+                                aria-valuemax="65"
+                                style="width: 100%"
+                            >{{ state.detalle.stats[3].base_stat }}</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-3">Def. especial</label>
+                        <div class="progress col-8">
+                            <div
+                                class="progress-bar progress-bar-striped progress-bar-animated"
+                                role="progressbar"
+                                aria-valuenow="65"
+                                aria-valuemin="0"
+                                aria-valuemax="65"
+                                style="width: 100%"
+                            >{{ state.detalle.stats[4].base_stat }}</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-3">Velocidad</label>
+                        <div class="progress col-8">
+                            <div
+                                class="progress-bar progress-bar-striped progress-bar-animated"
+                                role="progressbar"
+                                aria-valuenow="45"
+                                aria-valuemin="0"
+                                aria-valuemax="65"
+                                style="width: 69%"
+                            >{{ state.detalle.stats[5].base_stat }}</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -50,17 +119,20 @@ fetch("https://pokeapi.co/api/v2/pokemon/" + id)
     </div>
 </template>
 <style scoped>
-    .card{
-        border: solid 2px #dddddd;
-        width: 15rem;
-        transition: 0.4s;
-    }
+.card {
+    border: solid 2px #dddddd;
+    width: 20rem;
+    transition: 0.4s;
+}
 
-    .card img {
-        width: 100%;
-        max-height: auto;
-    }
+.card img {
+    width: 100%;
+    max-height: auto;
+}
 .progress-bar {
-    background-color:#258731; 
+    background-color: green;
+}
+.row {
+    --bs-gutter-x: 0rem;
 }
 </style>
