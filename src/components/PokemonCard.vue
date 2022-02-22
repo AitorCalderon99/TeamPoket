@@ -19,11 +19,15 @@
 <template>
     <div class="card">
         <router-link :to="{name: 'Detalle', params: {id: id}}">
-            <pre>{{id}}</pre>
-            <h1>{{detalle.name}}</h1>
-            <img class="pokemon" :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/'+id+'.png'" :alt="'foto de '+detalle.name">
-            <div class="cajatipos" >
-                <img class="tipos" v-for="tipo in tipos" :key="tipo.slot" :src="tipo">
+            <div class="card-header">
+                <span>{{id}}</span>
+                <h1>{{detalle.name}}</h1>
+            </div>
+            <div class="card-body">
+                <img class="pokemon" :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/'+id+'.png'" :alt="'foto de '+detalle.name">
+                <div class="cajatipos" >
+                    <img class="tipos" v-for="tipo in tipos" :key="tipo.slot" :src="tipo">
+                </div>
             </div>
         </router-link>
     </div>
@@ -33,14 +37,18 @@
     a{
         text-decoration: none;
         color: black;
+        user-select: none;
+        
+        display: flex;
+        flex-flow: column nowrap;
     }
     .card{
         border: solid 2px #dddddd;
         outline: none;
-        width: 20rem;
+        width: 22rem;
         margin: auto;
-        padding: .3rem;
         transition: 0.1s;
+        user-select: none;
     }
 
     .card:hover{
@@ -50,6 +58,21 @@
     .card:active {
         outline: solid 4px #bbbbbb;
         box-shadow: 0px 0px 10px 0px #aaaaaa;
+    }
+
+    .card-header {
+        display: flex;
+        align-items: baseline;
+        gap: 1rem;
+        padding: 0;
+    }
+
+    span {
+        background-color: olivedrab;
+        color: black;
+        font-size: 3rem;
+        width: 25%;
+        border-bottom-right-radius: 50%;
     }
 
     .pokemon {
