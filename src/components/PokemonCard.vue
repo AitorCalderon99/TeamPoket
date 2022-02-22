@@ -35,10 +35,11 @@
     }
     .card{
         border: solid 2px #dddddd;
+        outline: none;
         width: 20rem;
         margin: auto;
         padding: .3rem;
-        transition: 0.2s;
+        transition: 0.1s;
     }
 
     .card:hover{
