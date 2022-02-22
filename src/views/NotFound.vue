@@ -1,7 +1,7 @@
 <template>
     <div>
         <img src="/question.gif" alt="Error">
-        <h1>UPS! Ha habido un error</h1>
+        <h1>¡UPS! Ha habido un error</h1>
     </div>
 </template>
 
@@ -10,6 +10,7 @@
         display: flex;
         flex-flow: column nowrap;
         justify-content: center;
+        gap: 1rem;
     }
 
     img {
