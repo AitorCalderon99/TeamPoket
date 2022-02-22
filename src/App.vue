@@ -18,14 +18,12 @@
   
   <router-view v-slot="{ Component }">
     <template v-if="Component">
-        <KeepAlive>
-          <Suspense>
-            <component :is="Component"></component>
-          <template #fallback>
-            <h1>Cargando Pokemons...</h1>
-          </template>
-          </Suspense>
-        </KeepAlive>
+        <Suspense>
+          <component :is="Component"></component>
+        <template #fallback>
+          <h1>Cargando Pokemons...</h1>
+        </template>
+        </Suspense>
     </template>
   </router-view>
 
