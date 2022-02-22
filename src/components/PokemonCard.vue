@@ -1,19 +1,13 @@
 <script setup>
-    import { reactive } from 'vue';
     const props = defineProps(['id']);
     const id = props.id;
 
-    // Los datos extraidos del metodo fetch se guardarán en la array state.detalle
-    const state = reactive({
-        detalle:[]
-    });
-
-    fetch("https://pokeapi.co/api/v2/pokemon/"+id)
+    const detalle = await fetch("https://pokeapi.co/api/v2/pokemon/"+id)
         .then( (response) => response.json() )
         .then( (data) => {
             // Poner la primera letra del nombre en mayus
             data.name = data.name.charAt(0).toUpperCase() + data.name.slice(1)
-            state.detalle=data
+            return data
         })
         .catch( (error) => (console.error(error.message)))
 </script>
@@ -21,13 +15,13 @@
 <template>
     <div class="card">
         <router-link :to="{name: 'Detalle', params: {id: id}}">
-            <h1>{{state.detalle.name}}</h1>
-            <img :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/'+id+'.png'" :alt="'foto de '+state.detalle.name">
+            <h1>{{detalle.name}}</h1>
+            <img :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/'+id+'.png'" :alt="'foto de '+detalle.name">
         </router-link>
     </div>
 </template>
 
-<style>
+<style scoped>
     a{
         text-decoration: none;
         color: black;
