@@ -1,75 +1,47 @@
 <script setup>
-import {defineAsyncComponent, reactive} from 'vue';
+import {defineAsyncComponent, reactive, ref} from 'vue'
 import Loading from '../components/Loading.vue'
-import {onMounted} from "vue";
-import axios from "axios";
+import {onMounted} from "vue"
+import axios from "axios"
 
 onMounted(() => {
-  loadFirstPokemons();
-  getNextUser();
+  window.addEventListener("scroll", handleScroll)
 })
 
-let url = 'https://pokeapi.co/api/v2/pokemon?offset=';
-let numb = 0;
-let allPokemons = reactive([]);
+const url = 'https://pokeapi.co/api/v2/pokemon?offset='
+let numb = 0
+const allPokemons = reactive([])
+const scrollComponent = ref(null)
 
-function loadFirstPokemons() {
+const loadPokemon = () => {
   axios.get(url + numb).then(response => {
-    response.data.results.forEach(pokemon => {
-      pokemon.id = pokemon.url.split('/').slice(-2, -1).pop()
-      delete pokemon.url
-      // url ahora es el id y pusheamos el objeto pokemon en el array
-      allPokemons.push(pokemon);
-    })
+        response.data.results.forEach(pokemon => {
+            pokemon.id = pokemon.url.split('/').slice(-2, -1).pop()
+            delete pokemon.url
+            allPokemons.push(pokemon);
+        })
     numb += 20;
   })
 }
 
-
-function getNextUser() {
-  window.onscroll = () => {
-    let bottomOfWindow = document.documentElement.scrollHeight - document.documentElement.scrollTop <= document.documentElement.clientHeight;
-    console.log(bottomOfWindow);
-
-    if (bottomOfWindow) {
-      axios.get(url + numb).then(response => {
-        response.data.results.forEach(pokemon => {
-          pokemon.id = pokemon.url.split('/').slice(-2, -1).pop()
-          delete pokemon.url
-          // url ahora es el id y pusheamos el objeto pokemon en el array
-          allPokemons.push(pokemon);
-        })
-        numb += 20;
-      })
-      console.log(allPokemons);
+const handleScroll = (e) => {
+    let element = scrollComponent.value
+    if ( element.getBoundingClientRect().bottom < window.innerHeight ) {
+        loadPokemon
     }
-
-  }
 }
 
 const PokemonCard = defineAsyncComponent({
-  loader: () => import("../components/PokemonCard.vue"),
-  loadingComponent: Loading,
-  // mientras estan cargando las tarjetas carga el componente Loading
-  delay: 200,
-  suspensible: false
+    loader: () => import("../components/PokemonCard.vue"),
+    loadingComponent: Loading,
+    // mientras estan cargando las tarjetas carga el componente Loading
+    delay: 200,
+    suspensible: false
 })
-
-/*const pokemons = await fetch('https://pokeapi.co/api/v2/pokemon')
-    .then((response) => response.json())
-    .then((data) => {
-      data.results.forEach(pokemon => {
-        pokemon.id = pokemon.url.split('/').slice(-2, -1).pop()
-        delete pokemon.url
-        // url ahora es el id y pusheamos el objeto pokemon en el array
-      })
-      return data.results;
-    })
-    .catch((error) => (console.error(error.message)))*/
 </script>
 
 <template>
-  <div class="card-container">
+  <div class="card-container" ref="scrollComponent">
       <PokemonCard v-for="pokemon in allPokemons" :id="pokemon.id" :key="pokemon.id"></PokemonCard>
   </div>
 </template>
