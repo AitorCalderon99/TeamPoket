@@ -10,7 +10,7 @@ const PokemonCard = defineAsyncComponent({
     suspensible: false
 })
 
-const pokemons = await fetch('https://pokeapi.co/api/v2/pokemon?offset=0')
+const pokemons = await fetch('https://pokeapi.co/api/v2/pokemon')
     .then((response) => response.json())
     .then((data) => {
         data.results.forEach(pokemon => {
@@ -33,10 +33,11 @@ const pokemons = await fetch('https://pokeapi.co/api/v2/pokemon?offset=0')
 
 <style scoped>
 .card-container {
-    display: flex;
-    flex-flow: wrap row;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
     justify-content: center;
-    width: auto;
+
+    width: 100%;
     gap: 1rem;
     margin: 1rem 0;
 }

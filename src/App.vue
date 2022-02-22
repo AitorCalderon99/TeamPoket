@@ -1,4 +1,16 @@
 <script setup>
+import {reactive} from 'vue';
+const state = reactive({
+  buscartxt:""
+});
+function buscar(e){
+  if(e.keyCode==13){
+    console.log(state.buscartxt);
+  }
+};
+function lupa(){
+  console.log(state.buscartxt);
+}
 </script>
 
 <template>
@@ -8,8 +20,8 @@
         <img alt="Vue logo" src="/logo_black.png" id="logo" />
       </router-link>
       <div class="input-group border-3">
-        <input type="text"  name="" placeholder="Buscar..." aria-label="Search"  class="form-control border-0" id="buscador"/>
-        <span class="input-group-text border-0" id="basic-addon1">
+        <input type="text" @keyup="buscar" v-model="state.buscartxt" placeholder="Buscar..." aria-label="Search" class="form-control border-0" id="buscador"/>
+        <span @click="lupa" class="input-group-text border-0" id="basic-addon1">
           <i class="fa-solid fa-magnifying-glass"></i>
         </span>
       </div>
@@ -29,7 +41,7 @@
 
 </template>
 
-<style>
+<style scoped>
 @import "./assets/base.css";
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -39,6 +51,9 @@
   color: #2c3e50;
 }
 
+span:hover{
+  cursor: pointer;
+}
 .nav {
   width: auto;
   padding: 1rem 2rem;
