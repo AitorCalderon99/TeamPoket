@@ -16,41 +16,51 @@ fetch("https://pokeapi.co/api/v2/pokemon/" + id)
 
 <template>
     <div class="container">
-        <div class="d-flex justify-content-center">
-            <div></div>
-            <div class="row">
-                <div class="col-12 col-lg-4">detalles</div>
-                <div class="col-12 col-lg-4">
-                    <div class="card border-0">
-                        <h1>{{ state.detalle.name }}</h1>
-                        <div class="card-body">
-                            <img
-                                :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' + id + '.png'"
-                                :alt="'foto de ' + state.detalle.name"
-                            />
-                        </div>
+        <div></div>
+        <div class="row">
+            <div class="col-12 col-lg-4">detalles</div>
+            <div class="col-12 col-lg-4">
+                <div class="card border-0">
+                    <h1>{{ state.detalle.name }}</h1>
+                    <div class="card-body">
+                        <img
+                            :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' + id + '.png'"
+                            :alt="'foto de ' + state.detalle.name"
+                        />
                     </div>
                 </div>
-                <div class="col-12 col-lg-4">
-                    <div class="progress">
-                        <div
-                            class="progress-bar progress-bar-striped progress-bar-animated"
-                            role="progressbar"
-                            aria-valuenow="75"
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                            id="tamañoBarra"
-                        >{{ state.detalle.stats[0].base_stat }}</div>
-                    </div>
+            </div>
+            <div class="col-12 col-lg-4">
+                <label>Vida</label>
+                <div class="progress">
+                    <div
+                        class="progress-bar progress-bar-striped progress-bar-animated"
+                        role="progressbar"
+                        aria-valuenow="45"
+                        aria-valuemin="0"
+                        aria-valuemax="65"
+                        style="width: 69%"
+                    >{{ state.detalle.stats[0].base_stat }}</div>
                 </div>
             </div>
         </div>
     </div>
-        <div>
-            <pre>{{ id }}</pre>
-            <img
-                :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' + id + '.png'"
-                :alt="'foto de ' + state.detalle.name"
-            />
-        </div>
-    </template>
+    <div>
+        <!-- <pre>{{ id }}</pre> -->
+    </div>
+</template>
+<style scoped>
+    .card{
+        border: solid 2px #dddddd;
+        width: 15rem;
+        transition: 0.4s;
+    }
+
+    .card img {
+        width: 100%;
+        max-height: auto;
+    }
+.progress-bar {
+    background-color:#258731; 
+}
+</style>
