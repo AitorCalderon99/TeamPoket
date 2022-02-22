@@ -10,34 +10,20 @@ const PokemonCard = defineAsyncComponent({
     suspensible: false
 })
 
-// const pokemons = fetch('https://pokeapi.co/api/v2/pokemon?offset=0')
-//     .then((response) => response.json())
-//     .then((data) => {
-//         data.results.forEach(pokemon => {
-//             pokemon.id = pokemon.url.split('/').slice(-2, -1).pop()
-//             delete pokemon.url
-//             // url ahora es el id y pusheamos el objeto pokemon en el array
-//         });
-//         return data.results
-//     })
-//     .catch((error) => (console.error(error.message)))
-const pokemons = async() => {
-    return fetch('https://pokeapi.co/api/v2/pokemon?offset=0')
+const pokemons = await fetch('https://pokeapi.co/api/v2/pokemon?offset=0')
     .then((response) => response.json())
     .then((data) => {
         data.results.forEach(pokemon => {
             pokemon.id = pokemon.url.split('/').slice(-2, -1).pop()
             delete pokemon.url
             // url ahora es el id y pusheamos el objeto pokemon en el array
-        });
-        return data.results
+        })
+        return data.results;
     })
     .catch((error) => (console.error(error.message)))
-    }
 </script>
 
 <template>
-    <pre>{{pokemons }}</pre>
     <div class="card-container">
         <TransitionGroup appear>
             <PokemonCard v-for="pokemon in pokemons" :id="pokemon.id" :key="pokemon.id"></PokemonCard>
@@ -45,7 +31,7 @@ const pokemons = async() => {
     </div>
 </template>
 
-<style>
+<style scoped>
 .card-container {
     display: flex;
     flex-flow: wrap row;
