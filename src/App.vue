@@ -1,6 +1,5 @@
 <script setup>
   import Home from './views/Home.vue';
-
 </script>
 
 <template>
@@ -17,7 +16,20 @@
       </div>
     </div>
   </nav>
-  <router-view />
+  
+  <router-view v-slot="{ Component }">
+    <template v-if="Component">
+        <KeepAlive>
+          <Suspense>
+            <component :is="Component"></component>
+          <template #fallback>
+            <h1>Cargando Pokemons...</h1>
+          </template>
+          </Suspense>
+        </KeepAlive>
+    </template>
+  </router-view>
+
 </template>
 
 <style>
