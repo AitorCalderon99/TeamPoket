@@ -42,7 +42,7 @@ fetch("https://pokeapi.co/api/v2/pokemon/" + id)
                                 aria-valuemin="0"
                                 aria-valuemax="65"
                                 style="width: 69%"
-                            >{{ state.detalle.stats[0].base_stat }}</div>
+                            ></div>
                         </div>
                     </div>
                     <div class="row">
@@ -55,7 +55,7 @@ fetch("https://pokeapi.co/api/v2/pokemon/" + id)
                                 aria-valuemin="0"
                                 aria-valuemax="65"
                                 style="width: 73%"
-                            >{{ state.detalle.stats[1].base_stat }}</div>
+                            ></div>
                         </div>
                     </div>
                     <div class="row">
@@ -68,7 +68,7 @@ fetch("https://pokeapi.co/api/v2/pokemon/" + id)
                                 aria-valuemin="0"
                                 aria-valuemax="65"
                                 style="width: 73%"
-                            >{{ state.detalle.stats[2].base_stat }}</div>
+                            ></div>
                         </div>
                     </div>
                     <div class="row">
@@ -81,7 +81,7 @@ fetch("https://pokeapi.co/api/v2/pokemon/" + id)
                                 aria-valuemin="0"
                                 aria-valuemax="65"
                                 style="width: 100%"
-                            >{{ state.detalle.stats[3].base_stat }}</div>
+                            ></div>
                         </div>
                     </div>
                     <div class="row">
