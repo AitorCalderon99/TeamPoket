@@ -18,7 +18,7 @@
             <h1>{{detalle.name}}</h1>
             <img :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/'+id+'.png'" :alt="'foto de '+detalle.name">
             <div class="cajatipos" >
-                <img class="tipos" v-for="tipo in state.tipos" :key="tipo.slot" :src="tipo">
+                <img class="tipos" v-for="tipo in detalle.types" :key="tipo.slot" :src="tipo">
             </div>
         </router-link>
     </div>
@@ -33,6 +33,10 @@
         border: solid 2px #dddddd;
         width: 20rem;
         transition: 0.4s;
+    }
+    .card img {
+        width: 100%;
+        max-height: auto;
     }
 
     .card:hover{
