@@ -36,12 +36,18 @@
     .card{
         border: solid 2px #dddddd;
         width: 20rem;
-        transition: 0.4s;
+        margin: auto;
+        padding: .3rem;
+        transition: 0.2s;
     }
 
     .card:hover{
-        transform: scale(1.3);
-        z-index: 3;
+        outline: solid 2px #dddddd;
+    }
+
+    .card:active {
+        outline: solid 4px #bbbbbb;
+        box-shadow: 0px 0px 10px 0px #aaaaaa;
     }
 
     .pokemon {
@@ -51,13 +57,13 @@
 
     .cajatipos{
         width: 100%;
-        float: left;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
     }
 
     .tipos{
         width: 25%;
-        margin-left: 1em;
-        margin-right: 1em;
         max-height: auto;
     }
 </style>
