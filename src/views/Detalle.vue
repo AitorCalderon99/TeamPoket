@@ -2,17 +2,25 @@
 const props = defineProps(['id']);
 const id = props.id;
 
-var nombreStats = ["Vida", "Ataque", "Defensa", "At.Especial", "Def.Especial", "Velocidad"]
+var nombreStats = ["Vida", "Ataque", "Defensa", "At.Especial", "Def.Especial", "Velocidad"];
 
-// Los datos extraidos del metodo fetch se guardarán en la array state.detalle
+// Los datos extraidos del metodo fetch se guardarán en la array detalle
 const detalle = await fetch("https://pokeapi.co/api/v2/pokemon/" + id)
     .then((response) => response.json())
     .then((data) => data)
     .catch((error) => (console.error(error.message)))
+
+const color = await fetch("https://pokeapi.co/api/v2/pokemon-species/" + id)
+    .then((response) => response.json())
+    .then((res) => {
+        res.color.name = "var(--"+res.color.name+")"
+        return res.color.name
+    })
 </script>
 
 <template>
     <div class="container">
+        <!-- <pre>{{color}}</pre> -->
         <div class="row">
             <div class="col-12 col-lg-4">
                 <div class="row">
@@ -21,24 +29,35 @@ const detalle = await fetch("https://pokeapi.co/api/v2/pokemon/" + id)
                 </div>
                 <div class="row">
                     <label class="col-3 text-end pe-3">Altura</label>
-                    <p class="col-8 text-start">{{ detalle.height/10 }}m</p>
+                    <p class="col-8 text-start">{{ detalle.height / 10 }}m</p>
                 </div>
                 <div class="row">
                     <label class="col-3 text-end pe-3">Peso</label>
-                    <p class="col-8 text-start">{{ detalle.weight/10}}kg</p>
+                    <p class="col-8 text-start">{{ detalle.weight / 10 }}kg</p>
                 </div>
                 <div class="row">
                     <label class="col-3 text-end pe-3">Habilidades</label>
-                    <p class="col-2 text-start" v-for="habilidad in detalle.abilities" :key="slot">{{ habilidad.ability.name }}</p>
+                    <p
+                        class="col-2 text-start"
+                        v-for="habilidad in detalle.abilities"
+                        :key="id"
+                    >{{ habilidad.ability.name }}</p>
                 </div>
                 <div class="row">
                     <label class="col-3 text-end pe-3">Tipo</label>
-                    <p class="col-2 text-start" v-for="tipo in detalle.types" :key="slot">{{ tipo.type.name }}</p>
-                 
+                    <p
+                        class="col-2 text-start"
+                        v-for="tipo in detalle.types"
+                        :key="id"
+                    >{{ tipo.type.name }}</p>
                 </div>
-                 <div class="row">
+                <div class="row">
                     <label class="col-3 text-end pe-3">Forma</label>
-                    <p class="col-2 text-start" v-for="forma in detalle.forms" :key="id">{{ forma.name }}</p>
+                    <p
+                        class="col-2 text-start"
+                        v-for="forma in detalle.forms"
+                        :key="id"
+                    >{{ forma.name }}</p>
                 </div>
             </div>
 
@@ -56,10 +75,11 @@ const detalle = await fetch("https://pokeapi.co/api/v2/pokemon/" + id)
 
             <div class="col-12 col-lg-4">
                 <div class="row">
-                    <label class="col-4 text-end pe-3">{{nombreStats[0]}}</label>
+                    <label class="col-4 text-end pe-3">{{ nombreStats[0] }}</label>
                     <div class="progress col-8">
                         <div
                             class="progress-bar progress-bar-striped progress-bar-animated"
+                            id="prueba"
                             role="progressbar"
                             aria-valuenow="45"
                             aria-valuemin="0"
@@ -152,7 +172,7 @@ const detalle = await fetch("https://pokeapi.co/api/v2/pokemon/" + id)
     max-height: auto;
 }
 .progress-bar {
-    background-color: green;
+    background-color: v-bind("color");
 }
 .row {
     --bs-gutter-x: 0rem;
