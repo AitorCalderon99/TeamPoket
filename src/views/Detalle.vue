@@ -20,7 +20,7 @@ const color = await fetch("https://pokeapi.co/api/v2/pokemon-species/" + id)
 
 <template>
     <div class="container">
-        <!-- <pre>{{color}}</pre> -->
+        <pre>{{color}}</pre>
         <div class="row">
             <div class="col-12 col-lg-4">
                 <div class="row">
