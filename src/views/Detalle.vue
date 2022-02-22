@@ -1,16 +1,11 @@
 <script setup>
-import { reactive } from 'vue';
 const props = defineProps(['id']);
 const id = props.id;
 
 // Los datos extraidos del metodo fetch se guardarán en la array state.detalle
-const state = reactive({
-    detalle: []
-});
-
-fetch("https://pokeapi.co/api/v2/pokemon/" + id)
+const detalle = await fetch("https://pokeapi.co/api/v2/pokemon/" + id)
     .then((response) => response.json())
-    .then((data) => (state.detalle = data))
+    .then((data) => data)
     .catch((error) => (console.error(error.message)))
 </script>
 
@@ -21,11 +16,11 @@ fetch("https://pokeapi.co/api/v2/pokemon/" + id)
             <div class="col-12 col-lg-4">detalles</div>
             <div class="col-12 col-lg-4">
                 <div class="card border-0">
-                    <h1>{{ state.detalle.name }}</h1>
+                    <h1>{{ detalle.name }}</h1>
                     <div class="card-body">
                         <img
                             :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' + id + '.png'"
-                            :alt="'foto de ' + state.detalle.name"
+                            :alt="'foto de ' + detalle.name"
                         />
                     </div>
                 </div>
@@ -42,7 +37,7 @@ fetch("https://pokeapi.co/api/v2/pokemon/" + id)
                                 aria-valuemin="0"
                                 aria-valuemax="65"
                                 style="width: 69%"
-                            >{{ state.detalle.stats[0].base_stat }}</div>
+                            >{{ detalle.stats[0].base_stat }}</div>
                         </div>
                     </div>
                     <div class="row">
@@ -55,7 +50,7 @@ fetch("https://pokeapi.co/api/v2/pokemon/" + id)
                                 aria-valuemin="0"
                                 aria-valuemax="65"
                                 style="width: 73%"
-                            >{{ state.detalle.stats[1].base_stat }}</div>
+                            >{{ detalle.stats[1].base_stat }}</div>
                         </div>
                     </div>
                     <div class="row">
@@ -68,7 +63,7 @@ fetch("https://pokeapi.co/api/v2/pokemon/" + id)
                                 aria-valuemin="0"
                                 aria-valuemax="65"
                                 style="width: 73%"
-                            >{{ state.detalle.stats[2].base_stat }}</div>
+                            >{{ detalle.stats[2].base_stat }}</div>
                         </div>
                     </div>
                     <div class="row">
@@ -81,7 +76,7 @@ fetch("https://pokeapi.co/api/v2/pokemon/" + id)
                                 aria-valuemin="0"
                                 aria-valuemax="65"
                                 style="width: 100%"
-                            >{{ state.detalle.stats[3].base_stat }}</div>
+                            >{{ detalle.stats[3].base_stat }}</div>
                         </div>
                     </div>
                     <div class="row">
@@ -94,7 +89,7 @@ fetch("https://pokeapi.co/api/v2/pokemon/" + id)
                                 aria-valuemin="0"
                                 aria-valuemax="65"
                                 style="width: 100%"
-                            >{{ state.detalle.stats[4].base_stat }}</div>
+                            >{{ detalle.stats[4].base_stat }}</div>
                         </div>
                     </div>
                     <div class="row">
@@ -107,7 +102,7 @@ fetch("https://pokeapi.co/api/v2/pokemon/" + id)
                                 aria-valuemin="0"
                                 aria-valuemax="65"
                                 style="width: 69%"
-                            >{{ state.detalle.stats[5].base_stat }}</div>
+                            >{{ detalle.stats[5].base_stat }}</div>
                         </div>
                     </div>
                 </div>
