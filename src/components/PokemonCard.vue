@@ -55,6 +55,7 @@
     .pokemon {
         width: 100%;
         max-height: auto;
+        user-select: none;
     }
 
     .cajatipos{
