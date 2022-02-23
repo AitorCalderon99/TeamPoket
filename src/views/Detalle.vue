@@ -109,7 +109,6 @@ stats.forEach(stat => {
                         <div class="cardd" @click="cambio">
                             <div id="fron" class="cardd__face cardd__face--front">
                                 <div class="cardd border-0">
-                                    <h1>{{ detalle.name }}</h1>
                                     <div class="card-body">
                                         <img
                                             :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' + id + '.png'"
@@ -170,7 +169,7 @@ stats.forEach(stat => {
 }
 .scene {
     width: 20em;
-    height: 25em;
+    height: 20em;
     margin: 0.5em auto;
     perspective: 600px;
 }
