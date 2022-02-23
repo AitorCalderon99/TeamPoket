@@ -1,13 +1,19 @@
 <script setup>
 const props = defineProps(['id']);
 const id = props.id;
-
-var nombreStats = ["Vida", "Ataque", "Defensa", "At.Especial", "Def.Especial", "Velocidad"];
+const nombreStats = ["Vida", "Ataque", "Defensa", "At.Especial", "Def.Especial", "Velocidad"];
+const porcentajes = []
+const stats = []
 
 // Los datos extraidos del metodo fetch se guardarán en la array detalle
 const detalle = await fetch("https://pokeapi.co/api/v2/pokemon/" + id)
     .then((response) => response.json())
-    .then((data) => data)
+    .then((data) => {
+        data.stats.forEach(stat => {
+            stats.push(stat.base_stat)
+        })
+        return data
+    })
     .catch((error) => (console.error(error.message)))
 
 const color = await fetch("https://pokeapi.co/api/v2/pokemon-species/" + id)
@@ -16,11 +22,24 @@ const color = await fetch("https://pokeapi.co/api/v2/pokemon-species/" + id)
         res.color.name = "var(--"+res.color.name+")"
         return res.color.name
     })
+
+const findMax = arr => {
+    let max = arr[0]
+    for(let i = 0 ; i < arr.length ; i++)
+        if(arr[i] > max) max = arr[i]
+    return max
+}
+
+const maxStat = findMax(stats)
+
+stats.forEach(stat => {
+    porcentajes.push( "width:"+(stat / maxStat) *100+"%" )
+})
+
 </script>
 
 <template>
     <div class="container">
-        <pre>{{color}}</pre>
         <div class="row">
             <div class="col-12 col-lg-4">
                 <div class="row">
@@ -63,7 +82,8 @@ const color = await fetch("https://pokeapi.co/api/v2/pokemon-species/" + id)
 
             <div class="col-12 col-lg-4">
                 <div class="card border-0">
-                    <h1>{{ detalle.name }}</h1>
+                    <!-- Nombre en mayúsculas -->
+                    <h1>{{ detalle.name[0].toUpperCase()+detalle.name.slice(1) }}</h1>
                     <div class="card-body">
                         <img
                             :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' + id + '.png'"
@@ -74,8 +94,8 @@ const color = await fetch("https://pokeapi.co/api/v2/pokemon-species/" + id)
             </div>
 
             <div class="col-12 col-lg-4">
-                <div class="row">
-                    <label class="col-4 text-end pe-3">{{ nombreStats[0] }}</label>
+                <div class="row mb-3" v-for="(stat, index) in detalle.stats" :key="index">
+                    <label class="col-4 text-end pe-3">{{ nombreStats[index] }}</label>
                     <div class="progress col-8">
                         <div
                             class="progress-bar progress-bar-striped progress-bar-animated"
@@ -84,80 +104,12 @@ const color = await fetch("https://pokeapi.co/api/v2/pokemon-species/" + id)
                             aria-valuenow="45"
                             aria-valuemin="0"
                             aria-valuemax="65"
-                            style="width: 69%"
-                        >{{ detalle.stats[0].base_stat }}</div>
-                    </div>
-                </div>
-                <div class="row">
-                    <label class="col-4 text-end pe-3">Ataque</label>
-                    <div class="progress col-8">
-                        <div
-                            class="progress-bar progress-bar-striped progress-bar-animated"
-                            role="progressbar"
-                            aria-valuenow="49"
-                            aria-valuemin="0"
-                            aria-valuemax="65"
-                            style="width: 73%"
-                        >{{ detalle.stats[1].base_stat }}</div>
-                    </div>
-                </div>
-                <div class="row">
-                    <label class="col-4 text-end pe-3">Defensa</label>
-                    <div class="progress col-8">
-                        <div
-                            class="progress-bar progress-bar-striped progress-bar-animated"
-                            role="progressbar"
-                            aria-valuenow="49"
-                            aria-valuemin="0"
-                            aria-valuemax="65"
-                            style="width: 73%"
-                        >{{ detalle.stats[2].base_stat }}</div>
-                    </div>
-                </div>
-                <div class="row">
-                    <label class="col-4 text-end pe-3">At. especial</label>
-                    <div class="progress col-8">
-                        <div
-                            class="progress-bar progress-bar-striped progress-bar-animated"
-                            role="progressbar"
-                            aria-valuenow="65"
-                            aria-valuemin="0"
-                            aria-valuemax="65"
-                            style="width: 100%"
-                        >{{ detalle.stats[3].base_stat }}</div>
-                    </div>
-                </div>
-                <div class="row">
-                    <label class="col-4 text-end pe-3">Def. especial</label>
-                    <div class="progress col-8">
-                        <div
-                            class="progress-bar progress-bar-striped progress-bar-animated"
-                            role="progressbar"
-                            aria-valuenow="65"
-                            aria-valuemin="0"
-                            aria-valuemax="65"
-                            style="width: 100%"
-                        >{{ detalle.stats[4].base_stat }}</div>
-                    </div>
-                </div>
-                <div class="row">
-                    <label class="col-4 text-end pe-3">Velocidad</label>
-                    <div class="progress col-8">
-                        <div
-                            class="progress-bar progress-bar-striped progress-bar-animated"
-                            role="progressbar"
-                            aria-valuenow="45"
-                            aria-valuemin="0"
-                            aria-valuemax="65"
-                            style="width: 69%"
-                        >{{ detalle.stats[5].base_stat }}</div>
+                            :style="porcentajes[index]"
+                        >{{ stat.base_stat }}</div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div>
-        <!-- <pre>{{ id }}</pre> -->
     </div>
 </template>
 <style scoped>
