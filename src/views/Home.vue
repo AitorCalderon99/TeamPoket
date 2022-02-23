@@ -9,7 +9,7 @@ onMounted(() => {
   getNextUser();
 })
 
-let url = 'https://pokeapi.co/api/v2/pokemon?offset=';
+let url = 'https://pokeapi.co/api/v2/pokemon-species?offset=';
 let numb = 0;
 let allPokemons = reactive([]);
 
