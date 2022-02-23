@@ -52,7 +52,6 @@ a {
   margin: auto;
   transition: 0.1s;
   user-select: none;
-
 }
 
 .card:hover {
@@ -82,7 +81,7 @@ span {
 .pokemon {
   width: 100%;
   max-height: auto;
-  user-select: none;
+  transition: all .15s ease;
 }
 
 .cajatipos {
@@ -100,7 +99,7 @@ span {
   border: 2px solid grey;
 }
 
-.card-body > img:hover {
+a:hover .pokemon {
   transform: scale(1.15);
 }
 
