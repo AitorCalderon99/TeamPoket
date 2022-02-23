@@ -6,6 +6,7 @@ const porcentajes = []
 const stats = []
 var color = "";
 var genera = "";
+const movimientos = [];
 const colorTipo = [];
 const formas = [];
 
@@ -20,6 +21,9 @@ const detalle = await fetch("https://pokeapi.co/api/v2/pokemon/" + id)
     .then((data) => {
         for (let paso = 0; paso < data.types.length; paso++) {
             colorTipo.push(data.types[paso].type.name)
+        }
+        for (let mov = 0; mov < 3; mov++){
+            movimientos.push(data.moves[mov].move.name);
         }
         data.stats.forEach(stat => {
             stats.push(stat.base_stat)
@@ -61,38 +65,38 @@ stats.forEach(stat => {
             </div>
             <div class="col-12 col-lg-4 mt-3">
                 <div class="row">
-                    <label class="col-6 text-end pe-3 fw-bold">ID</label>
+                    <label class="col-6 text-end pe-3">ID</label>
                     <p class="col-6 text-start">{{ id }}</p>
                 </div>
                 <div class="row">
-                    <label class="col-6 text-end pe-3 fw-bold">Altura</label>
+                    <label class="col-6 text-end pe-3">Altura</label>
                     <p class="col-6 text-start">{{ detalle.height / 10 }}m</p>
                 </div>
                 <div class="row">
-                    <label class="col-6 text-end pe-3 fw-bold">Peso</label>
+                    <label class="col-6 text-end pe-3">Peso</label>
                     <p class="col-6 text-start">{{ detalle.weight / 10 }}kg</p>
                 </div>
                 <div class="row">
-                    <label class="col-6 text-end pe-3 fw-bold">Habilidades</label>
+                    <label class="col-6 text-end pe-3">Habilidades</label>
                     <div class="col-3" v-for="habilidad in detalle.abilities" :key="id">
                         <p
-                            class="text-start text-white bg-color p-1 me-3 rounded-3 text-capitalize"
+                            class="text-start text-white bg-color p-1 me-3 rounded-3"
                         >{{ habilidad.ability.name }}</p>
                     </div>
                 </div>
                 <div class="row">
-                    <label class="col-6 text-end pe-3 fw-bold">Tipo</label>
+                    <label class="col-6 text-end pe-3">Tipo</label>
                     <div class="col-3" v-for="tipo in detalle.types" :key="id">
                         <p
                             :class="tipo.type.name"
-                            class="text-start text-white p-1 me-3 rounded-3 text-capitalize"
+                            class="text-start text-white p-1 me-3 rounded-3"
                         >{{ tipo.type.name }}</p>
                     </div>
                 </div>
                 <div class="row">
-                    <label class="col-6 text-end pe-3 fw-bold">Forma</label>
+                    <label class="col-6 text-end pe-3">Forma</label>
                     <p
-                        class="col-2 text-start text-capitalize"
+                        class="col-2 text-start"
                         v-for="forma in formas"
                         :key="id"
                     >{{ forma }}</p>
@@ -101,12 +105,34 @@ stats.forEach(stat => {
 
             <div class="col-12 col-lg-4 justify-content-center">
                 <div class="card border-0">
-                    <div class="card-body">
-                        <img
-                            id="imgPokemon"
-                            :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' + id + '.png'"
-                            :alt="'foto de ' + detalle.name"
-                        />
+                    <div class="scene">
+                        <div class="cardd" @click="cambio">
+                            <div id="fron" class="cardd__face cardd__face--front">
+                                <div class="cardd border-0">
+                                    <h1>{{ detalle.name }}</h1>
+                                    <div class="card-body">
+                                        <img
+                                            :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' + id + '.png'"
+                                            :alt="'foto de ' + detalle.name"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="ba" class="cardd__face cardd__face--back">
+                                <div class="fs-3">Ataques especiales</div>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr v-for="movimiento in movimientos" >
+                                                <td>{{movimiento}}</td>
+                                                <td>45 damage</td>
+                                                <td>asl</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -129,25 +155,6 @@ stats.forEach(stat => {
             </div>
         </div>
     </div>
-    <div class="scene">
-        <div class="cardd" @click="cambio">
-            <div id="fron" class="cardd__face card__face--front">
-                
-                <div class="card border-0">
-                    <h1>{{ detalle.name }}</h1>
-                    <div class="card-body">
-                        <img
-                            :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' + id + '.png'"
-                            :alt="'foto de ' + detalle.name"
-                        />
-                    </div>
-                </div>
-            </div>
-            <div id="ba" class="cardd__face card__face--back">
-                
-            </div>
-        </div>
-    </div>
 </template>
 <style scoped>
 .card {
@@ -155,37 +162,48 @@ stats.forEach(stat => {
     transition: 0.4s;
 }
 
+
 #fron {
-    background-color: red;
+    background-color: v-bind('color');
     color: white;
+    border: 2px solid black;
 }
 .scene {
-  width: 200px;
-  height: 260px;
-  perspective: 600px;
+    width: 20em;
+    height: 25em;
+    margin: 0.5em auto;
+    perspective: 600px;
 }
+
 .cardd__face {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  backface-visibility: hidden;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    backface-visibility: hidden;
+}
+
+thead{
+    width: max-content;
 }
 .cardd {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transition: transform 1s;
-  transform-style: preserve-3d;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 1s;
+    transform-style: preserve-3d;
 }
 
 #ba {
-    background-color: blue;
-    color: white;
-  transform: rotateY( 180deg );
-}.cardd.is-flipped {
-  transform: rotateY(180deg);
+    background-color: white;
+    border: 2px solid black;
+    transform: rotateY(180deg);
 }
-.card img {
+
+.cardd.is-flipped {
+    transform: rotateY(180deg);
+}
+
+.cardd img {
     width: 100%;
     max-height: auto;
 }
