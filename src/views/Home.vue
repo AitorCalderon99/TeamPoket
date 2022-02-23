@@ -9,7 +9,7 @@ onMounted(() => {
   getNextUser();
 })
 
-let url = 'https://pokeapi.co/api/v2/pokemon-species?offset=';
+let url = 'https://pokeapi.co/api/v2/pokemon-species?limit=999';
 let numb = 0;
 let allPokemons = reactive([]);
 
@@ -43,17 +43,10 @@ function getNextUser() {
       })
       console.log(allPokemons);
     }
-
   }
 }
 
-const PokemonCard = defineAsyncComponent({
-  loader: () => import("../components/PokemonCard.vue"),
-  loadingComponent: Loading,
-  // mientras estan cargando las tarjetas carga el componente Loading
-  delay: 200,
-  suspensible: false
-})
+const PokemonCard = defineAsyncComponent( ()=> import("../components/PokemonCard.vue") )
 
 /*const pokemons = await fetch('https://pokeapi.co/api/v2/pokemon')
     .then((response) => response.json())
@@ -70,7 +63,7 @@ const PokemonCard = defineAsyncComponent({
 
 <template>
   <div class="card-container">
-      <PokemonCard v-for="pokemon in allPokemons" :id="pokemon.id" :key="pokemon.id"></PokemonCard>
+      <PokemonCard v-once v-for="pokemon in allPokemons" :id="pokemon.id" :key="pokemon.id"></PokemonCard>
   </div>
 </template>
 
