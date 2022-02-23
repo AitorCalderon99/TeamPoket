@@ -2,8 +2,8 @@
 const props = defineProps(['id']);
 const id = props.id;
 const nombreStats = ["Vida", "Ataque", "Defensa", "At.Especial", "Def.Especial", "Velocidad"];
-const porcentajes = []
-const stats = []
+const porcentajes = [];
+const stats = [];
 var color = "";
 var genera = "";
 const movimientos = [];
@@ -20,13 +20,13 @@ const detalle = await fetch("https://pokeapi.co/api/v2/pokemon/" + id)
     .then((response) => response.json())
     .then((data) => {
         for (let paso = 0; paso < data.types.length; paso++) {
-            colorTipo.push(data.types[paso].type.name)
+            colorTipo.push(data.types[paso].type.name);
         }
         for (let mov = 0; mov < 3; mov++){
             movimientos.push(data.moves[mov].move.name);
         }
         data.stats.forEach(stat => {
-            stats.push(stat.base_stat)
+            stats.push(stat.base_stat);
         })
         return data;
     })
@@ -35,24 +35,26 @@ const detalle = await fetch("https://pokeapi.co/api/v2/pokemon/" + id)
 const dataEspecie = await fetch("https://pokeapi.co/api/v2/pokemon-species/" + id)
     .then((response) => response.json())
     .then((res) => {
-        color = "var(--" + res.color.name + ")"
-        genera = res.genera[5].genus
+        color = ("var(--" + res.color.name + ")");
+        genera = res.genera[5].genus;
         for (let i = 0; i < res.varieties.length; i++) {
-            formas.push(res.varieties[i].pokemon.name)
+            formas.push(res.varieties[i].pokemon.name);
         }
     })
 
 const findMax = arr => {
-    let max = arr[0]
+    let max = arr[0];
     for(let i = 0 ; i < arr.length ; i++)
-        if(arr[i] > max) max = arr[i]
-    return max
+        if(arr[i] > max) {
+            max = arr[i];
+        }
+    return max;
 }
 
-const maxStat = findMax(stats)
+const maxStat = findMax(stats);
 
 stats.forEach(stat => {
-    porcentajes.push( "width:"+(stat / maxStat) *100+"%" )
+    porcentajes.push( "width:"+(stat / maxStat) *100+"%" );
 })
 </script>
 
