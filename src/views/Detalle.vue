@@ -101,7 +101,6 @@ stats.forEach(stat => {
 
             <div class="col-12 col-lg-4 justify-content-center">
                 <div class="card border-0">
-                    <h1>{{ detalle.name[0].toUpperCase()+detalle.name.slice(1) }}</h1>
                     <div class="card-body">
                         <img
                             id="imgPokemon"
