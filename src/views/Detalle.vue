@@ -8,6 +8,11 @@ const formas = [];
 
 var nombreStats = ["Vida", "Ataque", "Defensa", "At.Especial", "Def.Especial", "Velocidad"];
 
+function cambio() {
+    var carta = document.querySelector('.cardd');
+    carta.classList.toggle('is-flipped');
+}
+
 // Los datos extraidos del metodo fetch se guardarán en la array detalle
 const detalle = await fetch("https://pokeapi.co/api/v2/pokemon/" + id)
     .then((response) => response.json())
@@ -175,8 +180,24 @@ const dataEspecie = await fetch("https://pokeapi.co/api/v2/pokemon-species/" + i
             </div>
         </div>
     </div>
-    <div>
-        <!-- <pre>{{ id }}</pre> -->
+    <div class="scene">
+        <div class="cardd" @click="cambio">
+            <div id="fron" class="cardd__face card__face--front">
+                
+                <div class="card border-0">
+                    <h1>{{ detalle.name }}</h1>
+                    <div class="card-body">
+                        <img
+                            :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' + id + '.png'"
+                            :alt="'foto de ' + detalle.name"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div id="ba" class="cardd__face card__face--back">
+                
+            </div>
+        </div>
     </div>
 </template>
 <style scoped>
@@ -185,6 +206,36 @@ const dataEspecie = await fetch("https://pokeapi.co/api/v2/pokemon-species/" + i
     transition: 0.4s;
 }
 
+#fron {
+    background-color: red;
+    color: white;
+}
+.scene {
+  width: 200px;
+  height: 260px;
+  perspective: 600px;
+}
+.cardd__face {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+}
+.cardd {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+}
+
+#ba {
+    background-color: blue;
+    color: white;
+  transform: rotateY( 180deg );
+}.cardd.is-flipped {
+  transform: rotateY(180deg);
+}
 .card img {
     width: 100%;
     max-height: auto;
