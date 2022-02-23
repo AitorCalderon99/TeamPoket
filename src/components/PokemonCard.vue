@@ -88,6 +88,10 @@
         gap: 1rem;
     }
 
+    .card-body>img:hover{
+        transform: scale(1.15);
+    }
+
     .tipos{
         width: 25%;
         max-height: auto;
