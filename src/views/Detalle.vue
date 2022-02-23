@@ -1,71 +1,90 @@
 <script setup>
 const props = defineProps(['id']);
 const id = props.id;
+var color = "";
+var genera = "";
+const colorTipo = [];
+const formas = [];
 
 var nombreStats = ["Vida", "Ataque", "Defensa", "At.Especial", "Def.Especial", "Velocidad"];
 
 // Los datos extraidos del metodo fetch se guardarán en la array detalle
 const detalle = await fetch("https://pokeapi.co/api/v2/pokemon/" + id)
     .then((response) => response.json())
-    .then((data) => data)
+    .then((data) => {
+        for (let paso = 0; paso < data.types.length; paso++) {
+            colorTipo.push(data.types[paso].type.name)
+        }
+        return data;
+    })
     .catch((error) => (console.error(error.message)))
 
-const color = await fetch("https://pokeapi.co/api/v2/pokemon-species/" + id)
+const dataEspecie = await fetch("https://pokeapi.co/api/v2/pokemon-species/" + id)
     .then((response) => response.json())
     .then((res) => {
-        res.color.name = "var(--"+res.color.name+")"
-        return res.color.name
+        color = "var(--" + res.color.name + ")"
+        genera = res.genera[5].genus
+        for (let i = 0; i < res.varieties.length; i++) {
+            formas.push(res.varieties[i].pokemon.name)
+        }
     })
-</script>
 
+</script>
+0
 <template>
     <div class="container">
-        <pre>{{color}}</pre>
-        <div class="row">
-            <div class="col-12 col-lg-4">
+        <!-- <pre>{{colorTipo}}</pre> -->
+        <!-- <pre>{{color}}</pre> -->
+        <div class="row justify-content-center">
+            <h1 class="text-capitalize">{{ detalle.name }}</h1>
+            <div>
+                <span class="text-capitalize text-white bg-color rounded-3 p-1">{{ genera }}</span>
+            </div>
+            <div class="col-12 col-lg-4 mt-3">
                 <div class="row">
-                    <label class="col-3 text-end pe-3">ID</label>
-                    <p class="col-8 text-start">{{ id }}</p>
+                    <label class="col-6 text-end pe-3">ID</label>
+                    <p class="col-6 text-start">{{ id }}</p>
                 </div>
                 <div class="row">
-                    <label class="col-3 text-end pe-3">Altura</label>
-                    <p class="col-8 text-start">{{ detalle.height / 10 }}m</p>
+                    <label class="col-6 text-end pe-3">Altura</label>
+                    <p class="col-6 text-start">{{ detalle.height / 10 }}m</p>
                 </div>
                 <div class="row">
-                    <label class="col-3 text-end pe-3">Peso</label>
-                    <p class="col-8 text-start">{{ detalle.weight / 10 }}kg</p>
+                    <label class="col-6 text-end pe-3">Peso</label>
+                    <p class="col-6 text-start">{{ detalle.weight / 10 }}kg</p>
                 </div>
                 <div class="row">
-                    <label class="col-3 text-end pe-3">Habilidades</label>
+                    <label class="col-6 text-end pe-3">Habilidades</label>
+                    <div class="col-3" v-for="habilidad in detalle.abilities" :key="id">
+                        <p
+                            class="text-start text-white bg-color p-1 me-3 rounded-3"
+                        >{{ habilidad.ability.name }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-6 text-end pe-3">Tipo</label>
+                    <div class="col-3" v-for="tipo in detalle.types" :key="id">
+                        <p
+                            :class="tipo.type.name"
+                            class="text-start text-white p-1 me-3 rounded-3"
+                        >{{ tipo.type.name }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-6 text-end pe-3">Forma</label>
                     <p
                         class="col-2 text-start"
-                        v-for="habilidad in detalle.abilities"
+                        v-for="forma in formas"
                         :key="id"
-                    >{{ habilidad.ability.name }}</p>
-                </div>
-                <div class="row">
-                    <label class="col-3 text-end pe-3">Tipo</label>
-                    <p
-                        class="col-2 text-start"
-                        v-for="tipo in detalle.types"
-                        :key="id"
-                    >{{ tipo.type.name }}</p>
-                </div>
-                <div class="row">
-                    <label class="col-3 text-end pe-3">Forma</label>
-                    <p
-                        class="col-2 text-start"
-                        v-for="forma in detalle.forms"
-                        :key="id"
-                    >{{ forma.name }}</p>
+                    >{{ forma }}</p>
                 </div>
             </div>
 
-            <div class="col-12 col-lg-4">
+            <div class="col-12 col-lg-4 justify-content-center">
                 <div class="card border-0">
-                    <h1>{{ detalle.name }}</h1>
                     <div class="card-body">
                         <img
+                            id="imgPokemon"
                             :src="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' + id + '.png'"
                             :alt="'foto de ' + detalle.name"
                         />
@@ -73,7 +92,7 @@ const color = await fetch("https://pokeapi.co/api/v2/pokemon-species/" + id)
                 </div>
             </div>
 
-            <div class="col-12 col-lg-4">
+            <div class="col-12 col-lg-4 mt-5">
                 <div class="row">
                     <label class="col-4 text-end pe-3">{{ nombreStats[0] }}</label>
                     <div class="progress col-8">
@@ -163,7 +182,6 @@ const color = await fetch("https://pokeapi.co/api/v2/pokemon-species/" + id)
 <style scoped>
 .card {
     border: solid 2px #dddddd;
-    width: 20rem;
     transition: 0.4s;
 }
 
@@ -171,10 +189,20 @@ const color = await fetch("https://pokeapi.co/api/v2/pokemon-species/" + id)
     width: 100%;
     max-height: auto;
 }
-.progress-bar {
+.progress-bar,
+.bg-color {
     background-color: v-bind("color");
 }
 .row {
     --bs-gutter-x: 0rem;
+}
+#imgPokemon {
+    width: 25rem;
+}
+
+@media (max-width: 768px) {
+    #imgPokemon {
+        width: 20rem;
+    }
 }
 </style>
