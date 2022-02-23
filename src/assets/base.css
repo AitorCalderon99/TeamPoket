@@ -36,6 +36,10 @@
     --psychic: #fa8581;
     --rock: #c9bb8a;
     --steel: #5695a3;
+    --ice: #75d0c1;
+    --ghost: #5f6dbc;
+    --dragon: #0c69c8;
+    --dark: #595761;
 }
 
 .grass {
@@ -93,6 +97,22 @@
 .steel {
     background-color: var(--steel);
     box-shadow: 0 0 20px var(--steel);
+}
+.ice {
+    background-color: var(--ice);
+    box-shadow: 0 0 20px var(--ice);
+}
+.ghost {
+    background-color: var(--ghost);
+    box-shadow: 0 0 20px var(--ghost);
+}
+.dragon {
+    background-color: var(--dragon);
+    box-shadow: 0 0 20px var(--dragon);
+}
+.dark {
+    background-color: var(--dark);
+    box-shadow: 0 0 20px var(--dark);
 }
 
 

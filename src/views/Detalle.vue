@@ -35,7 +35,7 @@ const dataEspecie = await fetch("https://pokeapi.co/api/v2/pokemon-species/" + i
     })
 
 </script>
-0
+
 <template>
     <div class="container">
         <!-- <pre>{{colorTipo}}</pre> -->
@@ -47,38 +47,38 @@ const dataEspecie = await fetch("https://pokeapi.co/api/v2/pokemon-species/" + i
             </div>
             <div class="col-12 col-lg-4 mt-3">
                 <div class="row">
-                    <label class="col-6 text-end pe-3">ID</label>
+                    <label class="col-6 text-end pe-3 fw-bold">ID</label>
                     <p class="col-6 text-start">{{ id }}</p>
                 </div>
                 <div class="row">
-                    <label class="col-6 text-end pe-3">Altura</label>
+                    <label class="col-6 text-end pe-3 fw-bold">Altura</label>
                     <p class="col-6 text-start">{{ detalle.height / 10 }}m</p>
                 </div>
                 <div class="row">
-                    <label class="col-6 text-end pe-3">Peso</label>
+                    <label class="col-6 text-end pe-3 fw-bold">Peso</label>
                     <p class="col-6 text-start">{{ detalle.weight / 10 }}kg</p>
                 </div>
                 <div class="row">
-                    <label class="col-6 text-end pe-3">Habilidades</label>
+                    <label class="col-6 text-end pe-3 fw-bold">Habilidades</label>
                     <div class="col-3" v-for="habilidad in detalle.abilities" :key="id">
                         <p
-                            class="text-start text-white bg-color p-1 me-3 rounded-3"
+                            class="text-start text-white bg-color p-1 me-3 rounded-3 text-capitalize"
                         >{{ habilidad.ability.name }}</p>
                     </div>
                 </div>
                 <div class="row">
-                    <label class="col-6 text-end pe-3">Tipo</label>
+                    <label class="col-6 text-end pe-3 fw-bold">Tipo</label>
                     <div class="col-3" v-for="tipo in detalle.types" :key="id">
                         <p
                             :class="tipo.type.name"
-                            class="text-start text-white p-1 me-3 rounded-3"
+                            class="text-start text-white p-1 me-3 rounded-3 text-capitalize"
                         >{{ tipo.type.name }}</p>
                     </div>
                 </div>
                 <div class="row">
-                    <label class="col-6 text-end pe-3">Forma</label>
+                    <label class="col-6 text-end pe-3 fw-bold">Forma</label>
                     <p
-                        class="col-2 text-start"
+                        class="col-2 text-start text-capitalize"
                         v-for="forma in formas"
                         :key="id"
                     >{{ forma }}</p>
