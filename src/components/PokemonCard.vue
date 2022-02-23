@@ -68,8 +68,8 @@
     }
 
     span {
-        background-color: olivedrab;
-        color: black;
+        background-color: silver;
+        color: white;
         font-size: 3rem;
         width: 25%;
         border-bottom-right-radius: 50%;
