@@ -96,6 +96,7 @@ span {
 .tipos:hover {
   background-color: gray;
   border-radius: 50%;
+  filter: brightness(1.20);
   border: 2px solid grey;
 }
 
