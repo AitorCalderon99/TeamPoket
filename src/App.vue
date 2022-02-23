@@ -1,41 +1,75 @@
 <script setup>
-import {reactive} from 'vue';
+import {reactive, ref} from 'vue';
+import {computed} from "vue";
+import axios from "axios";
+import {onMounted} from "vue";
+
+let pokemonsName = [];
+
+onMounted(() => {
+  console.log("hola");
+  axios.get('allPokemon.json')
+      .then((res) => {
+        for (const re of res.data) {
+          pokemonsName.push(
+              re)
+        }
+      })
+      .catch(err => console.log(err));
+
+})
+
 const state = reactive({
-  buscartxt:""
+  buscartxt: ""
 });
-function buscar(e){
-  if(e.keyCode==13){
+
+function buscar(e) {
+  if (e.keyCode === 13) {
     console.log(state.buscartxt);
+    console.log(filteredList);
   }
-};
-function lupa(){
-  console.log(state.buscartxt);
 }
+
+const filteredList = computed(() => {
+  return pokemonsName.filter((pokemon) => pokemon.name.includes(state.buscartxt));
+
+});
+
+function lupa() {
+  console.log(state.buscartxt);
+  console.log(filteredList.value);
+
+}
+
 </script>
 
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light shadow p-3 mb-5 bg-body rounded">
     <div class="container-fluid">
       <router-link class="navbar-brand" :to="{name: 'Home'}">
-        <img alt="Vue logo" src="/logo_black.png" id="logo" />
+        <img alt="Vue logo" src="/logo_black.png" id="logo"/>
       </router-link>
       <div class="input-group border-3">
-        <input type="text" @keyup="buscar" v-model="state.buscartxt" placeholder="Buscar..." aria-label="Search" class="form-control border-0" id="buscador"/>
+        <input type="text" @keyup="buscar" v-model="state.buscartxt" placeholder="Buscar..." aria-label="Search"
+               class="form-control border-0" id="buscador" list="datalistOptions"/>
+        <datalist id="datalistOptions">
+          <option v-for="pokemon in filteredPokemons">{{ pokemon.name }}</option>
+        </datalist>
         <span @click="lupa" class="input-group-text border-0" id="basic-addon1">
           <i class="fa-solid fa-magnifying-glass"></i>
         </span>
       </div>
     </div>
   </nav>
-  
+
   <router-view v-slot="{ Component }">
     <template v-if="Component">
-        <Suspense>
-          <component :is="Component"></component>
+      <Suspense>
+        <component :is="Component"></component>
         <template #fallback>
           <h1>Cargando Pokemons...</h1>
         </template>
-        </Suspense>
+      </Suspense>
     </template>
   </router-view>
 
@@ -43,6 +77,7 @@ function lupa(){
 
 <style>
 @import "./assets/base.css";
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -51,9 +86,10 @@ function lupa(){
   color: #2c3e50;
 }
 
-span:hover{
+span:hover {
   cursor: pointer;
 }
+
 .nav {
   width: auto;
   padding: 1rem 2rem;
