@@ -45,7 +45,7 @@
     .card{
         border: solid 2px #dddddd;
         outline: none;
-        width: 22rem;
+        width: 20rem;
         margin: auto;
         transition: 0.1s;
         user-select: none;
