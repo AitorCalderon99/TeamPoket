@@ -9,14 +9,12 @@ onMounted(() => {
   getNextUser();
 })
 
-let url = 'https://pokeapi.co/api/v2/pokemon-species?limit=999';
+let url = 'https://pokeapi.co/api/v2/pokemon-species?offset=';
 let numb = 0;
 let allPokemons = reactive([]);
 
 function loadFirstPokemons() {
   for (let i = 0; i < 7; i++) {
-
-
     axios.get(url + numb).then(response => {
       response.data.results.forEach(pokemon => {
         pokemon.id = pokemon.url.split('/').slice(-2, -1).pop()
@@ -26,10 +24,8 @@ function loadFirstPokemons() {
       })
     })
     numb += 20;
-
   }
 }
-
 
 function getNextUser() {
   window.onscroll = () => {
@@ -51,19 +47,11 @@ function getNextUser() {
   }
 }
 
-const PokemonCard = defineAsyncComponent( ()=> import("../components/PokemonCard.vue") )
-
-/*const pokemons = await fetch('https://pokeapi.co/api/v2/pokemon')
-    .then((response) => response.json())
-    .then((data) => {
-      data.results.forEach(pokemon => {
-        pokemon.id = pokemon.url.split('/').slice(-2, -1).pop()
-        delete pokemon.url
-        // url ahora es el id y pusheamos el objeto pokemon en el array
-      })
-      return data.results;
-    })
-    .catch((error) => (console.error(error.message)))*/
+const PokemonCard = defineAsyncComponent({
+  loader: ()=> import("../components/PokemonCard.vue"),
+  loadingComponent: Loading,
+  delay:100,
+})
 </script>
 
 <template>
