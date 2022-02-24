@@ -33,49 +33,49 @@ const detalle = await fetch("https://pokeapi.co/api/v2/pokemon/" + id)
         data.stats.forEach(stat => {
             stats.push(stat.base_stat);
         })
-        for (let mov = 0; mov < 3; mov++){
+        for (let mov = 0; mov < 3; mov++) {
             urlmov.push(data.moves[mov].move.url);
         }
         return data;
     })
     .catch((error) => (console.error(error.message)))
 
-for(let paso=0; paso<2; paso++){
+for (let paso = 0; paso < 2; paso++) {
     const desventaja = await fetch(urltipos[paso])
-        .then( (response) => response.json() )
-        .then ( (data) => {
-            for(let mov=0; mov<data.damage_relations.double_damage_from.length; mov++){
+        .then((response) => response.json())
+        .then((data) => {
+            for (let mov = 0; mov < data.damage_relations.double_damage_from.length; mov++) {
                 desventajatipos.push(data.damage_relations.double_damage_from[mov].name);
             }
         })
 }
 
-for(let paso=0; paso<3; paso++){
+for (let paso = 0; paso < 3; paso++) {
     const movimientos = await fetch(urlmov[paso])
-        .then( (response) => response.json() )
-        .then( (data) => {
-            if(data.power == "" || data.power==null){
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.power == "" || data.power == null) {
                 poderesNombre.push(data.name);
                 poderes.push("-");
                 tipoataque.push(data.damage_class.name);
                 var tor = {
-                    poderesNombre:poderesNombre,
-                    poderes:poderes,
-                    tipoataque:tipoataque
+                    poderesNombre: poderesNombre,
+                    poderes: poderes,
+                    tipoataque: tipoataque
                 };
-            }else{
+            } else {
                 poderesNombre.push(data.name);
                 poderes.push(data.power);
                 tipoataque.push(data.damage_class.name);
                 var tor = {
-                    poderesNombre:poderesNombre,
-                    poderes:poderes,
-                    tipoataque:tipoataque
+                    poderesNombre: poderesNombre,
+                    poderes: poderes,
+                    tipoataque: tipoataque
                 };
             }
             todopoder.push(tor);
         })
-    .catch((error) => (console.error(error.message)))
+        .catch((error) => (console.error(error.message)))
 }
 
 const dataEspecie = await fetch("https://pokeapi.co/api/v2/pokemon-species/" + id)
@@ -138,7 +138,9 @@ stats.forEach(stat => {
                         <tr>
                             <th class="text-end">Habilidades</th>
                             <td class="col" v-for="habilidad in detalle.abilities" :key="id">
-                                <span class="text-white bg-color rounded-3 px-2 text-capitalize">{{ habilidad.ability.name }}</span>
+                                <span
+                                    class="text-white bg-color rounded-3 px-2 text-capitalize"
+                                >{{ habilidad.ability.name }}</span>
                             </td>
                         </tr>
                         <tr>
@@ -179,50 +181,49 @@ stats.forEach(stat => {
                                 <div class="table-responsive">
                                     <table class="table">
                                         <tbody>
-                                            <tr v-for="(movimiento, index) in todopoder" >
-                                                <td>{{movimiento.poderesNombre[index]}}</td>
-                                                <td>{{movimiento.poderes[index]}}</td>
-                                                <td>{{movimiento.tipoataque[index]}}</td>
+                                            <tr v-for="(movimiento, index) in todopoder">
+                                                <td>{{ movimiento.poderesNombre[index] }}</td>
+                                                <td>{{ movimiento.poderes[index] }}</td>
+                                                <td>{{ movimiento.tipoataque[index] }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
 
-                                
                                 <div class="fs-4">Debil contra</div>
-                                    <td v-for="desventaja in desventajatipos">
-                                        <span class="desventajas">{{desventaja}}</span>
-                                    </td>
-                                </div>
+                                <td v-for="desventaja in desventajatipos">
+                                    <span class="desventajas">{{ desventaja }}</span>
+                                </td>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="col-12 col-xl-4 align-self-center mt-5 mb-5 mt-xl-0">
-                <div class="row" v-for="(stat, index) in stats" :key="index">
-                    <label class="col-4 text-end pe-3 fw-bold fs-5">{{ nombreStats[index] }}</label>
-                    <div class="progress col-8">
-                        <div
-                            class="progress-bar progress-bar-striped progress-bar-animated fs-6"
-                            id="prueba"
-                            role="progressbar"
-                            aria-valuenow="45"
-                            aria-valuemin="0"
-                            aria-valuemax="65"
-                            :style="porcentajes[index]"
-                        >{{ stat }}</div>
-                    </div>
-                </div>
-            <Cadena :urlCadena="dataEspecie.evolution_chain.url" :id="id"/>
         </div>
+
+        <div class="col-12 col-xl-4 align-self-center mt-5 mb-5 mt-xl-0">
+            <div class="row" v-for="(stat, index) in stats" :key="index">
+                <label class="col-4 text-end pe-3 fw-bold fs-5">{{ nombreStats[index] }}</label>
+                <div class="progress col-8">
+                    <div
+                        class="progress-bar progress-bar-striped progress-bar-animated fs-6"
+                        id="prueba"
+                        role="progressbar"
+                        aria-valuenow="45"
+                        aria-valuemin="0"
+                        aria-valuemax="65"
+                        :style="porcentajes[index]"
+                    >{{ stat }}</div>
+                </div>
+            </div>
+        </div>
+        <Cadena :urlCadena="dataEspecie.evolution_chain.url" :id="id" />
     </div>
 </template>
 <style scoped>
 td {
     padding-top: 0.5rem;
-    padding-bottom: 0.50rem;
+    padding-bottom: 0.5rem;
 }
 .card {
     border: solid 2px #dddddd;
