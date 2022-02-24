@@ -27,7 +27,7 @@
 <template>
     <h1>Cadena evolutiva</h1>
     <div class="cadena container-sm">
-        <PokemonCard v-for="id in cadena" :key="id" :id="id" />
+        <PokemonCard v-for="id in cadena" :key="id" :id="id" :width="10" />
     </div>
 </template>
 
