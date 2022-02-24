@@ -7,9 +7,12 @@ const porcentajes = [];
 const stats = [];
 var color = "";
 var genera = "";
-const movimientos = [];
+const urlmov = [];
 const colorTipo = [];
 const formas = [];
+const poderes = [];
+const poderesNombre = [];
+const todopoder = [];
 
 function cambio() {
     var carta = document.querySelector('.cardd');
@@ -23,31 +26,62 @@ const detalle = await fetch("https://pokeapi.co/api/v2/pokemon/" + id)
         for (let paso = 0; paso < data.types.length; paso++) {
             colorTipo.push(data.types[paso].type.name);
         }
-        for (let mov = 0; mov < 3; mov++){
-            movimientos.push(data.moves[mov].move.name);
-        }
         data.stats.forEach(stat => {
             stats.push(stat.base_stat);
         })
+        for (let mov = 0; mov < 3; mov++){
+            urlmov.push(data.moves[mov].move.url);
+        }
         return data;
     })
     .catch((error) => (console.error(error.message)))
+
+for(let paso=0; paso<3; paso++){
+    const movimientos = await fetch(urlmov[paso])
+        .then( (response) => response.json() )
+        .then( (data) => {
+            if(data.power == "" || data.power==null){
+                poderesNombre.push(data.name);
+                poderes.push("-");
+                var tor = {
+                    poderesNombre:poderesNombre,
+                    poderes:poderes
+                };
+            }else{
+                poderesNombre.push(data.name);
+                poderes.push(data.power);
+                var tor = {
+                    poderesNombre:poderesNombre,
+                    poderes:poderes
+                };
+            }
+            todopoder.push(tor);
+        })
+    .catch((error) => (console.error(error.message)))
+}
 
 const dataEspecie = await fetch("https://pokeapi.co/api/v2/pokemon-species/" + id)
     .then((response) => response.json())
     .then((res) => {
         color = ("var(--" + res.color.name + ")");
         genera = res.genera[5].genus;
-        for (let i = 0; i < res.varieties.length; i++) {
-            formas.push(res.varieties[i].pokemon.name);
+        if (res.varieties.length < 2) {
+            for (let i = 0; i < res.varieties.length; i++) {
+                formas.push(res.varieties[i].pokemon.name);
+            }
+        } else {
+            for (let i = 0; i < 2; i++) {
+                formas.push(res.varieties[i].pokemon.name);
+            }
+
         }
         return res;
     })
 
 const findMax = arr => {
     let max = arr[0];
-    for(let i = 0 ; i < arr.length ; i++)
-        if(arr[i] > max) {
+    for (let i = 0; i < arr.length; i++)
+        if (arr[i] > max) {
             max = arr[i];
         }
     return max;
@@ -56,7 +90,7 @@ const findMax = arr => {
 const maxStat = findMax(stats);
 
 stats.forEach(stat => {
-    porcentajes.push( "width:"+(stat / maxStat) *100+"%" );
+    porcentajes.push("width:" + (stat / maxStat) * 100 + "%");
 })
 </script>
 
@@ -67,43 +101,44 @@ stats.forEach(stat => {
             <div>
                 <span class="text-capitalize text-white bg-color rounded-3 p-1">{{ genera }}</span>
             </div>
+
             <div class="col-12 col-lg-4 mt-3">
-                <div class="row">
-                    <label class="col-6 text-end pe-3">ID</label>
-                    <p class="col-6 text-start">{{ id }}</p>
-                </div>
-                <div class="row">
-                    <label class="col-6 text-end pe-3">Altura</label>
-                    <p class="col-6 text-start">{{ detalle.height / 10 }}m</p>
-                </div>
-                <div class="row">
-                    <label class="col-6 text-end pe-3">Peso</label>
-                    <p class="col-6 text-start">{{ detalle.weight / 10 }}kg</p>
-                </div>
-                <div class="row">
-                    <label class="col-6 text-end pe-3">Habilidades</label>
-                    <div class="col-3" v-for="habilidad in detalle.abilities" :key="id">
-                        <p
-                            class="text-start text-white bg-color p-1 me-3 rounded-3"
-                        >{{ habilidad.ability.name }}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <label class="col-6 text-end pe-3">Tipo</label>
-                    <div class="col-3" v-for="tipo in detalle.types" :key="id">
-                        <p
-                            :class="tipo.type.name"
-                            class="text-start text-white p-1 me-3 rounded-3"
-                        >{{ tipo.type.name }}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <label class="col-6 text-end pe-3">Forma</label>
-                    <p
-                        class="col-2 text-start"
-                        v-for="forma in formas"
-                        :key="id"
-                    >{{ forma }}</p>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <th class="text-end">ID</th>
+                            <td>{{ id }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-end">Altura</th>
+                            <td>{{ detalle.height / 10 }}m</td>
+                        </tr>
+                        <tr>
+                            <th class="text-end">Peso</th>
+                            <td>{{ detalle.weight / 10 }}kg</td>
+                        </tr>
+                        <tr>
+                            <th class="text-end">Habilidades</th>
+                            <td v-for="habilidad in detalle.abilities" :key="id">
+                                <span class="text-white bg-color rounded-3 px-4">{{ habilidad.ability.name }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="text-end">Tipo</th>
+                            <td v-for="tipo in detalle.types" :key="id">
+                                <span
+                                    :class="tipo.type.name"
+                                    class="text-white px-4 rounded-3"
+                                >{{ tipo.type.name }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="text-end">Forma</th>
+                            <td v-for="forma in formas" :key="id">
+                                <span>{{ forma }}</span>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
 
@@ -126,10 +161,9 @@ stats.forEach(stat => {
                                 <div class="table-responsive">
                                     <table class="table">
                                         <tbody>
-                                            <tr v-for="movimiento in movimientos" >
-                                                <td>{{movimiento}}</td>
-                                                <td>45 damage</td>
-                                                <td>asl</td>
+                                            <tr v-for="(movimiento, index) in todopoder" >
+                                                <td>{{movimiento.poderesNombre[index]}}</td>
+                                                <td>{{movimiento.poderes[index]}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -162,14 +196,17 @@ stats.forEach(stat => {
     </div>
 </template>
 <style scoped>
+td {
+    padding-top: 0.5rem;
+    padding-bottom: 0.50rem;
+}
 .card {
     border: solid 2px #dddddd;
     transition: 0.4s;
 }
 
-
 #fron {
-    background-color: v-bind('color');
+    background-color: v-bind("color");
     color: white;
     border: 2px solid black;
 }
@@ -187,7 +224,7 @@ stats.forEach(stat => {
     backface-visibility: hidden;
 }
 
-thead{
+thead {
     width: max-content;
 }
 .cardd {
@@ -214,7 +251,7 @@ thead{
 }
 .progress-bar,
 .bg-color {
-    background-color: v-bind("color");
+    background-color: v-bind("color") !important;
 }
 .row {
     --bs-gutter-x: 0rem;

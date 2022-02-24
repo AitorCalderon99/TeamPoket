@@ -6,7 +6,7 @@
     --red: #dc3545;
     --orange: #fd7e14;
     --yellow: #ffc107;
-    --green: #28a745;
+    --green: #81c784;
     --teal: #20c997;
     --cyan: #17a2b8;
     --white: #d5dbe1;
@@ -43,76 +43,76 @@
 }
 
 .grass {
-    background-color: var(--grass);
-    box-shadow: 0 0 20px var(--grass);
+    background-color: var(--grass) !important;
+    box-shadow: 0 0 20px var(--grass) !important;
 }
 .poison {
-    background-color: var(--poison);
-    box-shadow: 0 0 20px var(--poison);
+    background-color: var(--poison) !important;
+    box-shadow: 0 0 20px var(--poison) !important;
 }
 .fire {
-    background-color: var(--fire);
-    box-shadow: 0 0 20px var(--fire);
+    background-color: var(--fire) !important;
+    box-shadow: 0 0 20px var(--fire) !important;
 }
 .water {
-    background-color: var(--water);
-    box-shadow: 0 0 20px var(--water);
+    background-color: var(--water) !important;
+    box-shadow: 0 0 20px var(--water) !important;
 }
 .bug {
-    background-color: var(--bug);
-    box-shadow: 0 0 20px var(--bug);
+    background-color: var(--bug) !important;
+    box-shadow: 0 0 20px var(--bug) !important;
 }
 .normal {
-    background-color: var(--normal);
-    box-shadow: 0 0 20px var(--normal);
+    background-color: var(--normal) !important;
+    box-shadow: 0 0 20px var(--normal) !important;
 }
 .electric {
-    background-color: var(--electric);
-    box-shadow: 0 0 20px var(--electric);
+    background-color: var(--electric) !important;
+    box-shadow: 0 0 20px var(--electric) !important;
 }
 .ground {
-    background-color: var(--ground);
-    box-shadow: 0 0 20px var(--ground);
+    background-color: var(--ground) !important;
+    box-shadow: 0 0 20px var(--ground) !important;
 }
 .fairy {
-    background-color: var(--fairy);
-    box-shadow: 0 0 20px var(--fairy);
+    background-color: var(--fairy) !important;
+    box-shadow: 0 0 20px var(--fairy) !important;
 }
 .grass {
-    background-color: var(--grass);
-    box-shadow: 0 0 20px var(--grass);
+    background-color: var(--grass) !important;
+    box-shadow: 0 0 20px var(--grass) !important;
 }
 .fighting {
-    background-color: var(--fighting);
-    box-shadow: 0 0 20px var(--fighting);
+    background-color: var(--fighting) !important;
+    box-shadow: 0 0 20px var(--fighting) !important;
 }
 .phychic {
-    background-color: var(--psychic);
-    box-shadow: 0 0 20px var(--psychic);
+    background-color: var(--psychic) !important;
+    box-shadow: 0 0 20px var(--psychic) !important;
 }
 .rock {
-    background-color: var(--rock);
-    box-shadow: 0 0 20px var(--rock);
+    background-color: var(--rock) !important;
+    box-shadow: 0 0 20px var(--rock) !important;
 }
 .steel {
-    background-color: var(--steel);
-    box-shadow: 0 0 20px var(--steel);
+    background-color: var(--steel) !important;
+    box-shadow: 0 0 20px var(--steel) !important;
 }
 .ice {
-    background-color: var(--ice);
-    box-shadow: 0 0 20px var(--ice);
+    background-color: var(--ice) !important;
+    box-shadow: 0 0 20px var(--ice) !important;
 }
 .ghost {
-    background-color: var(--ghost);
-    box-shadow: 0 0 20px var(--ghost);
+    background-color: var(--ghost) !important;
+    box-shadow: 0 0 20px var(--ghost) !important;
 }
 .dragon {
-    background-color: var(--dragon);
-    box-shadow: 0 0 20px var(--dragon);
+    background-color: var(--dragon) !important;
+    box-shadow: 0 0 20px var(--dragon) !important;
 }
 .dark {
-    background-color: var(--dark);
-    box-shadow: 0 0 20px var(--dark);
+    background-color: var(--dark) !important;
+    box-shadow: 0 0 20px var(--dark) !important;
 }
 
 
