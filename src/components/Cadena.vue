@@ -1,5 +1,5 @@
 <script setup>
-    import PokemonCard from './PokemonCard.vue';
+    import PokemonCard from './PokemonCard.vue'
 
     const prop = defineProps(['urlCadena','id'])
     let id = 0
@@ -27,7 +27,7 @@
 <template>
     <h1>Cadena evolutiva</h1>
     <div class="cadena container-sm">
-        <PokemonCard v-for="id in cadena" :key="id" :id="id" :width="10" />
+        <PokemonCard v-for="id in cadena" :key="id" :id="id"/>
     </div>
 </template>
 
