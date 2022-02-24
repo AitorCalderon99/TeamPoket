@@ -7,12 +7,15 @@ const porcentajes = [];
 const stats = [];
 var color = "";
 var genera = "";
+const tipoataque = [];
 const urlmov = [];
 const colorTipo = [];
 const formas = [];
 const poderes = [];
 const poderesNombre = [];
 const todopoder = [];
+const urltipos = [];
+const desventajatipos = [];
 
 function cambio() {
     var carta = document.querySelector('.cardd');
@@ -25,6 +28,7 @@ const detalle = await fetch("https://pokeapi.co/api/v2/pokemon/" + id)
     .then((data) => {
         for (let paso = 0; paso < data.types.length; paso++) {
             colorTipo.push(data.types[paso].type.name);
+            urltipos.push(data.types[paso].type.url);
         }
         data.stats.forEach(stat => {
             stats.push(stat.base_stat);
@@ -36,6 +40,16 @@ const detalle = await fetch("https://pokeapi.co/api/v2/pokemon/" + id)
     })
     .catch((error) => (console.error(error.message)))
 
+for(let paso=0; paso<2; paso++){
+    const desventaja = await fetch(urltipos[paso])
+        .then( (response) => response.json() )
+        .then ( (data) => {
+            for(let mov=0; mov<data.damage_relations.double_damage_from.length; mov++){
+                desventajatipos.push(data.damage_relations.double_damage_from[mov].name);
+            }
+        })
+}
+
 for(let paso=0; paso<3; paso++){
     const movimientos = await fetch(urlmov[paso])
         .then( (response) => response.json() )
@@ -43,16 +57,20 @@ for(let paso=0; paso<3; paso++){
             if(data.power == "" || data.power==null){
                 poderesNombre.push(data.name);
                 poderes.push("-");
+                tipoataque.push(data.damage_class.name);
                 var tor = {
                     poderesNombre:poderesNombre,
-                    poderes:poderes
+                    poderes:poderes,
+                    tipoataque:tipoataque
                 };
             }else{
                 poderesNombre.push(data.name);
                 poderes.push(data.power);
+                tipoataque.push(data.damage_class.name);
                 var tor = {
                     poderesNombre:poderesNombre,
-                    poderes:poderes
+                    poderes:poderes,
+                    tipoataque:tipoataque
                 };
             }
             todopoder.push(tor);
@@ -164,9 +182,17 @@ stats.forEach(stat => {
                                             <tr v-for="(movimiento, index) in todopoder" >
                                                 <td>{{movimiento.poderesNombre[index]}}</td>
                                                 <td>{{movimiento.poderes[index]}}</td>
+                                                <td>{{movimiento.tipoataque[index]}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
+                                </div>
+
+                                
+                                <div class="fs-4">Debil contra</div>
+                                    <td v-for="desventaja in desventajatipos">
+                                        <span class="desventajas">{{desventaja}}</span>
+                                    </td>
                                 </div>
                             </div>
                         </div>
@@ -189,8 +215,6 @@ stats.forEach(stat => {
                         >{{ stat }}</div>
                     </div>
                 </div>
-            </div>
-
             <Cadena :urlCadena="dataEspecie.evolution_chain.url" :id="id"/>
         </div>
     </div>
