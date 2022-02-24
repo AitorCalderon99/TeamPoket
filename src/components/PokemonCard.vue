@@ -1,7 +1,7 @@
 <script setup>
-const props = defineProps(['id']);
-const id = props.id;
-const tipos = [];
+const props = defineProps(['id'])
+const id = props.id
+const tipos = []
 
 const detalle = await fetch("https://pokeapi.co/api/v2/pokemon/" + id)
     .then((response) => response.json())
