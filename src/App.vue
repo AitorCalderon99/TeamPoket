@@ -65,9 +65,7 @@ function lupa() {
   <router-view v-slot="{ Component }">
     <template v-if="Component">
       <Suspense>
-        <Transition name="fade" mode="out-in" appear>
-          <component :is="Component"></component>
-        </Transition>
+        <component :is="Component"></component>
         <template #fallback>
           <h1>Cargando Pokemons...</h1>
         </template>
@@ -113,16 +111,6 @@ span:hover {
 
 .form-control {
   border-radius: 0.75rem;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.fade-enter-active,
-.fade-leave-to {
-  transition: opacity .2s ease-out;
 }
 
 </style>
