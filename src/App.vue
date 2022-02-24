@@ -3,8 +3,10 @@ import {reactive, ref} from 'vue';
 import {computed} from "vue";
 import axios from "axios";
 import {onMounted} from "vue";
+import router from "./router";
 
 let pokemonsName = [];
+
 
 onMounted(() => {
   console.log("hola");
@@ -23,21 +25,41 @@ const state = reactive({
   buscartxt: ""
 });
 
+const selected = reactive({
+  text: ""
+});
+
+
 function buscar(e) {
   if (e.keyCode === 13) {
     console.log(state.buscartxt);
-    console.log(filteredList);
+    //console.log(filteredList.value);
   }
 }
 
-const filteredList = computed(() => {
-  return pokemonsName.filter((pokemon) => pokemon.name.includes(state.buscartxt));
-
-});
 
 function lupa() {
   console.log(state.buscartxt);
-  console.log(filteredList.value);
+  let searchInput = state.buscartxt.toLowerCase();
+  //console.log(filteredList.value);
+
+  if (searchInput.length >= 1 && searchInput !== "") {
+    var arraycontainsturtles = pokemonsName.some(item => item.name === searchInput);
+    if (arraycontainsturtles) {
+      searchPokemon(searchInput);
+
+    }
+  }
+}
+
+function searchPokemon(inputName) {
+  for (const pokemon in pokemonsName) {
+    if (pokemonsName[pokemon].name === inputName) {
+      console.log(pokemonsName[pokemon].id);
+      router.push('/'+pokemonsName[pokemon].id);
+    }
+
+  }
 
 }
 
@@ -53,7 +75,7 @@ function lupa() {
         <input type="text" @keyup="buscar" v-model="state.buscartxt" placeholder="Buscar..." aria-label="Search"
                class="form-control border-0" id="buscador" list="datalistOptions"/>
         <datalist id="datalistOptions">
-          <option v-for="pokemon in filteredPokemons">{{ pokemon.name }}</option>
+          <option v-for="pokemon in pokemonsName">{{ pokemon.name }}</option>
         </datalist>
         <span @click="lupa" class="input-group-text border-0" id="basic-addon1">
           <i class="fa-solid fa-magnifying-glass"></i>
