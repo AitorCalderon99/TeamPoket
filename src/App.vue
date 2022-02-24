@@ -32,16 +32,16 @@ const selected = reactive({
 function buscar(e) {
   if (e.keyCode === 13) {
     console.log(state.buscartxt);
-  let searchInput = state.buscartxt.toLowerCase();
-  //console.log(filteredList.value);
+    let searchInput = state.buscartxt.toLowerCase();
+    //console.log(filteredList.value);
 
-  if (searchInput.length >= 1 && searchInput !== "") {
-    var arraycontainsturtles = pokemonsName.some(item => item.name === searchInput);
-    if (arraycontainsturtles) {
-      searchPokemon(searchInput);
+    if (searchInput.length >= 1 && searchInput !== "") {
+      var arraycontainsturtles = pokemonsName.some(item => item.name === searchInput);
+      if (arraycontainsturtles) {
+        searchPokemon(searchInput);
 
+      }
     }
-  }
     //console.log(filteredList.value);
   }
 }
