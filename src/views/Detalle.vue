@@ -73,7 +73,7 @@ stats.forEach(stat => {
                 <span class="text-capitalize text-white bg-color rounded-3 p-1">{{ genera }}</span>
             </div>
 
-            <div class="col-12 col-lg-4 mt-3">
+            <div class="col-12 col-xl-4 mt-3">
                 <div class="table-responsive">
                     <table class="table">
                         <tr>
@@ -90,8 +90,8 @@ stats.forEach(stat => {
                         </tr>
                         <tr>
                             <th class="text-end">Habilidades</th>
-                            <td v-for="habilidad in detalle.abilities" :key="id">
-                                <span class="text-white bg-color rounded-3 px-4">{{ habilidad.ability.name }}</span>
+                            <td class="col" v-for="habilidad in detalle.abilities" :key="id">
+                                <span class="text-white bg-color rounded-3 px-2 text-capitalize">{{ habilidad.ability.name }}</span>
                             </td>
                         </tr>
                         <tr>
@@ -99,21 +99,21 @@ stats.forEach(stat => {
                             <td v-for="tipo in detalle.types" :key="id">
                                 <span
                                     :class="tipo.type.name"
-                                    class="text-white px-4 rounded-3"
+                                    class="text-white px-4 rounded-3 text-capitalize"
                                 >{{ tipo.type.name }}</span>
                             </td>
                         </tr>
                         <tr>
                             <th class="text-end">Forma</th>
                             <td v-for="forma in formas" :key="id">
-                                <span>{{ forma }}</span>
+                                <span class="text-capitalize">{{ forma }}</span>
                             </td>
                         </tr>
                     </table>
                 </div>
             </div>
 
-            <div class="col-12 col-lg-4 justify-content-center">
+            <div class="col-12 col-xl-4 justify-content-center">
                 <div class="card border-0">
                     <div class="scene">
                         <div class="cardd" @click="cambio">
@@ -146,9 +146,9 @@ stats.forEach(stat => {
                 </div>
             </div>
 
-            <div class="col-12 col-lg-4 mt-5">
+            <div class="col-12 col-xl-4 align-self-center mt-5 mt-xl-0">
                 <div class="row" v-for="(stat, index) in stats" :key="index">
-                    <label class="col-4 text-end pe-3">{{ nombreStats[index] }}</label>
+                    <label class="col-4 text-end pe-3 fw-bold">{{ nombreStats[index] }}</label>
                     <div class="progress col-8">
                         <div
                             class="progress-bar progress-bar-striped progress-bar-animated"
