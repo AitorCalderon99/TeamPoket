@@ -1,4 +1,5 @@
 <script setup>
+import Cadena from '../components/Cadena.vue';
 const props = defineProps(['id']);
 const id = props.id;
 const nombreStats = ["Vida", "Ataque", "Defensa", "At.Especial", "Def.Especial", "Velocidad"];
@@ -40,6 +41,7 @@ const dataEspecie = await fetch("https://pokeapi.co/api/v2/pokemon-species/" + i
         for (let i = 0; i < res.varieties.length; i++) {
             formas.push(res.varieties[i].pokemon.name);
         }
+        return res;
     })
 
 const findMax = arr => {
@@ -154,6 +156,8 @@ stats.forEach(stat => {
                     </div>
                 </div>
             </div>
+
+            <Cadena :urlCadena="dataEspecie.evolution_chain.url" :id="id"/>
         </div>
     </div>
 </template>
