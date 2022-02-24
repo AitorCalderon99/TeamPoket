@@ -6,9 +6,12 @@ const porcentajes = [];
 const stats = [];
 var color = "";
 var genera = "";
-const movimientos = [];
+const urlmov = [];
 const colorTipo = [];
 const formas = [];
+const poderes = [];
+const poderesNombre = [];
+const todopoder = [];
 
 function cambio() {
     var carta = document.querySelector('.cardd');
@@ -22,15 +25,39 @@ const detalle = await fetch("https://pokeapi.co/api/v2/pokemon/" + id)
         for (let paso = 0; paso < data.types.length; paso++) {
             colorTipo.push(data.types[paso].type.name);
         }
-        for (let mov = 0; mov < 3; mov++) {
-            movimientos.push(data.moves[mov].move.name);
-        }
         data.stats.forEach(stat => {
             stats.push(stat.base_stat);
         })
+        for (let mov = 0; mov < 3; mov++){
+            urlmov.push(data.moves[mov].move.url);
+        }
         return data;
     })
     .catch((error) => (console.error(error.message)))
+
+for(let paso=0; paso<3; paso++){
+    const movimientos = await fetch(urlmov[paso])
+        .then( (response) => response.json() )
+        .then( (data) => {
+            if(data.power == "" || data.power==null){
+                poderesNombre.push(data.name);
+                poderes.push("-");
+                var tor = {
+                    poderesNombre:poderesNombre,
+                    poderes:poderes
+                };
+            }else{
+                poderesNombre.push(data.name);
+                poderes.push(data.power);
+                var tor = {
+                    poderesNombre:poderesNombre,
+                    poderes:poderes
+                };
+            }
+            todopoder.push(tor);
+        })
+    .catch((error) => (console.error(error.message)))
+}
 
 const dataEspecie = await fetch("https://pokeapi.co/api/v2/pokemon-species/" + id)
     .then((response) => response.json())
@@ -132,10 +159,9 @@ stats.forEach(stat => {
                                 <div class="table-responsive">
                                     <table class="table">
                                         <tbody>
-                                            <tr v-for="movimiento in movimientos">
-                                                <td>{{ movimiento }}</td>
-                                                <td>45 damage</td>
-                                                <td>asl</td>
+                                            <tr v-for="(movimiento, index) in todopoder" >
+                                                <td>{{movimiento.poderesNombre[index]}}</td>
+                                                <td>{{movimiento.poderes[index]}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
