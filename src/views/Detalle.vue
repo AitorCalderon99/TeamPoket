@@ -199,24 +199,24 @@ stats.forEach(stat => {
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="col-12 col-xl-4 align-self-center mt-5 mb-5 mt-xl-0">
-            <div class="row" v-for="(stat, index) in stats" :key="index">
-                <label class="col-4 text-end pe-3 fw-bold fs-5">{{ nombreStats[index] }}</label>
-                <div class="progress col-8">
-                    <div
-                        class="progress-bar progress-bar-striped progress-bar-animated fs-6"
-                        id="prueba"
-                        role="progressbar"
-                        aria-valuenow="45"
-                        aria-valuemin="0"
-                        aria-valuemax="65"
-                        :style="porcentajes[index]"
-                    >{{ stat }}</div>
+            <div class="col-12 col-xl-4 align-self-center mt-5 mb-5 mt-xl-0">
+                <div class="row" v-for="(stat, index) in stats" :key="index">
+                    <label class="col-4 text-end pe-3 fw-bold fs-5">{{ nombreStats[index] }}</label>
+                    <div class="progress col-8">
+                        <div
+                            class="progress-bar progress-bar-striped progress-bar-animated fs-6"
+                            id="prueba"
+                            role="progressbar"
+                            aria-valuenow="45"
+                            aria-valuemin="0"
+                            aria-valuemax="65"
+                            :style="porcentajes[index]"
+                        >{{ stat }}</div>
+                    </div>
                 </div>
             </div>
         </div>
+
         <Cadena :urlCadena="dataEspecie.evolution_chain.url" :id="id" />
     </div>
 </template>
