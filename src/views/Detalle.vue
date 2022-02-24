@@ -1,5 +1,7 @@
 <script setup>
 import Cadena from '../components/Cadena.vue';
+import Cri from "../components/Cri.vue";
+
 const props = defineProps(['id']);
 const id = props.id;
 const nombreStats = ["Vida", "Ataque", "Defensa", "At.Especial", "Def.Especial", "Velocidad"];
@@ -18,8 +20,8 @@ const urltipos = [];
 const desventajatipos = [];
 
 function cambio() {
-    var carta = document.querySelector('.cardd');
-    carta.classList.toggle('is-flipped');
+  var carta = document.querySelector('.cardd');
+  carta.classList.toggle('is-flipped');
 }
 
 // Los datos extraidos del metodo fetch se guardarán en la array detalle
@@ -28,101 +30,88 @@ const detalle = await fetch("https://pokeapi.co/api/v2/pokemon/" + id)
     .then((data) => {
         for (let paso = 0; paso < data.types.length; paso++) {
             colorTipo.push(data.types[paso].type.name);
-            urltipos.push(data.types[paso].type.url);
         }
         data.stats.forEach(stat => {
             stats.push(stat.base_stat);
         })
-        for (let mov = 0; mov < 3; mov++) {
+        for (let mov = 0; mov < 3; mov++){
             urlmov.push(data.moves[mov].move.url);
         }
         return data;
     })
     .catch((error) => (console.error(error.message)))
 
-for (let paso = 0; paso < 2; paso++) {
-    const desventaja = await fetch(urltipos[paso])
-        .then((response) => response.json())
-        .then((data) => {
-            for (let mov = 0; mov < data.damage_relations.double_damage_from.length; mov++) {
-                desventajatipos.push(data.damage_relations.double_damage_from[mov].name);
-            }
-        })
-}
-
-for (let paso = 0; paso < 3; paso++) {
+for(let paso=0; paso<3; paso++){
     const movimientos = await fetch(urlmov[paso])
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.power == "" || data.power == null) {
+        .then( (response) => response.json() )
+        .then( (data) => {
+            if(data.power == "" || data.power==null){
                 poderesNombre.push(data.name);
                 poderes.push("-");
-                tipoataque.push(data.damage_class.name);
                 var tor = {
-                    poderesNombre: poderesNombre,
-                    poderes: poderes,
-                    tipoataque: tipoataque
+                    poderesNombre:poderesNombre,
+                    poderes:poderes
                 };
-            } else {
+            }else{
                 poderesNombre.push(data.name);
                 poderes.push(data.power);
-                tipoataque.push(data.damage_class.name);
                 var tor = {
-                    poderesNombre: poderesNombre,
-                    poderes: poderes,
-                    tipoataque: tipoataque
+                    poderesNombre:poderesNombre,
+                    poderes:poderes
                 };
             }
             todopoder.push(tor);
         })
-        .catch((error) => (console.error(error.message)))
+    .catch((error) => (console.error(error.message)))
 }
 
 const dataEspecie = await fetch("https://pokeapi.co/api/v2/pokemon-species/" + id)
     .then((response) => response.json())
     .then((res) => {
-        color = ("var(--" + res.color.name + ")");
-        genera = res.genera[5].genus;
-        if (res.varieties.length < 2) {
-            for (let i = 0; i < res.varieties.length; i++) {
-                formas.push(res.varieties[i].pokemon.name);
-            }
-        } else {
-            for (let i = 0; i < 2; i++) {
-                formas.push(res.varieties[i].pokemon.name);
-            }
-
+      color = ("var(--" + res.color.name + ")");
+      genera = res.genera[5].genus;
+      if (res.varieties.length < 2) {
+        for (let i = 0; i < res.varieties.length; i++) {
+          formas.push(res.varieties[i].pokemon.name);
         }
-        return res;
+      } else {
+        for (let i = 0; i < 2; i++) {
+          formas.push(res.varieties[i].pokemon.name);
+        }
+
+      }
+      return res;
     })
 
 const findMax = arr => {
-    let max = arr[0];
-    for (let i = 0; i < arr.length; i++)
-        if (arr[i] > max) {
-            max = arr[i];
-        }
-    return max;
+  let max = arr[0];
+  for (let i = 0; i < arr.length; i++)
+    if (arr[i] > max) {
+      max = arr[i];
+    }
+  return max;
 }
 
 const maxStat = findMax(stats);
 
 stats.forEach(stat => {
-    porcentajes.push("width:" + (stat / maxStat) * 100 + "%");
+  porcentajes.push("width:" + (stat / maxStat) * 100 + "%");
 })
 </script>
 
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <h1 class="text-capitalize">{{ detalle.name }}</h1>
-            <div>
-                <span class="text-capitalize text-white bg-color rounded-3 p-1">{{ genera }}</span>
-            </div>
+  <div class="container">
+    <div class="row justify-content-center">
+      <h1 class="text-capitalize">{{ detalle.name }}
+        <cri :id="id"></cri>
+      </h1>
+      <div>
+        <span class="text-capitalize text-white bg-color rounded-3 p-1">{{ genera }}</span>
+      </div>
 
-            <div class="col-12 col-xl-4 mt-3">
+            <div class="col-12 col-lg-4 mt-3">
                 <div class="table-responsive">
-                    <table class="table fs-5">
+                    <table class="table">
                         <tr>
                             <th class="text-end">ID</th>
                             <td>{{ id }}</td>
@@ -137,10 +126,8 @@ stats.forEach(stat => {
                         </tr>
                         <tr>
                             <th class="text-end">Habilidades</th>
-                            <td class="col" v-for="habilidad in detalle.abilities" :key="id">
-                                <span
-                                    class="text-white bg-color rounded-3 px-2 text-capitalize"
-                                >{{ habilidad.ability.name }}</span>
+                            <td v-for="habilidad in detalle.abilities" :key="id">
+                                <span class="text-white bg-color rounded-3 px-4">{{ habilidad.ability.name }}</span>
                             </td>
                         </tr>
                         <tr>
@@ -155,14 +142,14 @@ stats.forEach(stat => {
                         <tr>
                             <th class="text-end">Forma</th>
                             <td v-for="forma in formas" :key="id">
-                                <span class="text-capitalize">{{ forma }}</span>
+                                <span>{{ forma }}</span>
                             </td>
                         </tr>
                     </table>
                 </div>
             </div>
 
-            <div class="col-12 col-xl-4 justify-content-center">
+            <div class="col-12 col-lg-4 justify-content-center">
                 <div class="card border-0">
                     <div class="scene">
                         <div class="cardd" @click="cambio">
@@ -181,30 +168,25 @@ stats.forEach(stat => {
                                 <div class="table-responsive">
                                     <table class="table">
                                         <tbody>
-                                            <tr v-for="(movimiento, index) in todopoder">
-                                                <td>{{ movimiento.poderesNombre[index] }}</td>
-                                                <td>{{ movimiento.poderes[index] }}</td>
-                                                <td>{{ movimiento.tipoataque[index] }}</td>
+                                            <tr v-for="(movimiento, index) in todopoder" >
+                                                <td>{{movimiento.poderesNombre[index]}}</td>
+                                                <td>{{movimiento.poderes[index]}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
-
-                                <div class="fs-4">Debil contra</div>
-                                <td v-for="desventaja in desventajatipos">
-                                    <span class="desventajas">{{ desventaja }}</span>
-                                </td>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-xl-4 align-self-center mt-5 mb-5 mt-xl-0">
+
+            <div class="col-12 col-lg-4 mt-5">
                 <div class="row" v-for="(stat, index) in stats" :key="index">
-                    <label class="col-4 text-end pe-3 fw-bold fs-5">{{ nombreStats[index] }}</label>
+                    <label class="col-4 text-end pe-3">{{ nombreStats[index] }}</label>
                     <div class="progress col-8">
                         <div
-                            class="progress-bar progress-bar-striped progress-bar-animated fs-6"
+                            class="progress-bar progress-bar-striped progress-bar-animated"
                             id="prueba"
                             role="progressbar"
                             aria-valuenow="45"
@@ -215,82 +197,84 @@ stats.forEach(stat => {
                     </div>
                 </div>
             </div>
-        </div>
 
-        <Cadena :urlCadena="dataEspecie.evolution_chain.url" :id="id" />
+            <Cadena :urlCadena="dataEspecie.evolution_chain.url" :id="id"/>
+        </div>
     </div>
 </template>
 <style scoped>
 td {
     padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.50rem;
 }
+
 .card {
-    border: solid 2px #dddddd;
-    transition: 0.4s;
+  border: solid 2px #dddddd;
+  transition: 0.4s;
 }
 
 #fron {
-    background-color: v-bind("color");
-    color: white;
-    border: 2px solid black;
+  background-color: v-bind("color");
+  color: white;
+  border: 2px solid black;
 }
+
 .scene {
-    width: 20em;
-    height: 20em;
-    margin: 0.5em auto;
-    perspective: 600px;
+  width: 20em;
+  height: 20em;
+  margin: 0.5em auto;
+  perspective: 600px;
 }
 
 .cardd__face {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    backface-visibility: hidden;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
 }
 
 thead {
-    width: max-content;
+  width: max-content;
 }
+
 .cardd {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transition: transform 1s;
-    transform-style: preserve-3d;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 1s;
+  transform-style: preserve-3d;
 }
 
 #ba {
-    background-color: white;
-    border: 2px solid black;
-    transform: rotateY(180deg);
+  background-color: white;
+  border: 2px solid black;
+  transform: rotateY(180deg);
 }
 
 .cardd.is-flipped {
-    transform: rotateY(180deg);
+  transform: rotateY(180deg);
 }
 
 .cardd img {
-    width: 100%;
-    max-height: auto;
-}
-.progress {
-    height: 1.2rem;
+  width: 100%;
+  max-height: auto;
 }
 .progress-bar,
 .bg-color {
-    background-color: v-bind("color") !important;
+  background-color: v-bind("color") !important;
 }
+
 .row {
-    --bs-gutter-x: 0rem;
+  --bs-gutter-x: 0rem;
 }
+
 #imgPokemon {
-    width: 25rem;
+  width: 25rem;
 }
 
 @media (max-width: 768px) {
-    #imgPokemon {
-        width: 20rem;
-    }
+  #imgPokemon {
+    width: 20rem;
+  }
 }
 </style>

@@ -48,8 +48,8 @@ function getNextUser() {
 }
 
 const PokemonCard = defineAsyncComponent({
-  loader: ()=> import("../components/PokemonCard.vue"),
-  delay:100,
+  loader: () => import("../components/PokemonCard.vue"),
+  delay: 100,
 })
 </script>
 
