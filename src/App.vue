@@ -9,7 +9,6 @@ let pokemonsName = [];
 
 
 onMounted(() => {
-  console.log("hola");
   axios.get('allPokemon.json')
       .then((res) => {
         for (const re of res.data) {
