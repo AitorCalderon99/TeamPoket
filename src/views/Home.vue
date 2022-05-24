@@ -30,8 +30,6 @@ function loadFirstPokemons() {
 function getNextUser() {
   window.onscroll = () => {
     let bottomOfWindow = (document.documentElement.scrollHeight - document.documentElement.scrollTop) - 450 <= document.documentElement.clientHeight;
-    //console.log(bottomOfWindow);
-
     if (bottomOfWindow) {
       axios.get(url + numb).then(response => {
         response.data.results.forEach(pokemon => {
@@ -42,7 +40,6 @@ function getNextUser() {
         })
         numb += 20;
       })
-      //console.log(allPokemons);
     }
   }
 }
