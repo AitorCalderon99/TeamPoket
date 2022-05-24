@@ -100,7 +100,11 @@ stats.forEach(stat => {
 
 const sonar = () => {
   document.getElementById("sound").disabled = true;
-  const audio = new Audio("./public/cries/"+id+".mp3");
+  if(id<=721){
+    var audio = new Audio("./cries/"+id+".mp3");
+  }else{
+    var audio = new Audio("./cries/"+id+".wav");
+  }
   audio.play();
   setTimeout(() => {
     document.getElementById("sound").disabled = false;
@@ -108,7 +112,11 @@ const sonar = () => {
 }
 
 onMounted(() => {
-  document.getElementById("sound").addEventListener("click", sonar);  
+  if(id<=802){
+    document.getElementById("sound").addEventListener("click", sonar);  
+  }else{
+    document.getElementById("sound").style.display="none";
+  }
 })
 </script>
 
