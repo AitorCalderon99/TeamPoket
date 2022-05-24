@@ -1,6 +1,6 @@
 <script setup>
+import { onMounted } from 'vue';
 import Cadena from '../components/Cadena.vue';
-import Cri from "../components/Cri.vue";
 
 const props = defineProps(['id']);
 const id = props.id;
@@ -97,18 +97,33 @@ const maxStat = findMax(stats);
 stats.forEach(stat => {
   porcentajes.push("width:" + (stat / maxStat) * 100 + "%");
 })
+
+const sonar = () => {
+  document.getElementById("sound").disabled = true;
+  const audio = new Audio("./public/cries/"+id+".mp3");
+  audio.play();
+  setTimeout(() => {
+    document.getElementById("sound").disabled = false;
+  }, 1500);
+}
+
+onMounted(() => {
+  document.getElementById("sound").addEventListener("click", sonar);  
+})
 </script>
 
 <template>
   <div class="container">
     <div class="row justify-content-center">
-      <h1 class="text-capitalize">{{ detalle.name }}
-        <cri :id="id"></cri>
+      <h1 class="text-capitalize">
+        {{ detalle.name }}
+        <button id="sound">
+          <img src="../assets/volume-up.svg">
+        </button>
       </h1>
       <div>
         <span class="text-capitalize text-white bg-color rounded-3 p-1">{{ genera }}</span>
       </div>
-
             <div class="col-12 col-lg-4 mt-3">
                 <div class="table-responsive">
                     <table class="table">
@@ -270,6 +285,10 @@ thead {
 
 #imgPokemon {
   width: 25rem;
+}
+
+#sound:hover {
+  color: black;
 }
 
 @media (max-width: 768px) {
