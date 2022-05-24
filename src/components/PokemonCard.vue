@@ -33,9 +33,6 @@ const detalle = await fetch("https://pokeapi.co/api/v2/pokemon/" + id)
       </div>
     </a>
   </div>
-  <div id="flecha">
-    <div>></div>
-  </div>
 </template>
 
 <style scoped>
