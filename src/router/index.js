@@ -15,7 +15,7 @@ const routes = [
     component: Home,
   },
   {
-    path: "/:id(\\d+)",
+    path: "/:id(\\d{0,3})",
     name: "Detalle",
     component: Detalle,
     props: true,
