@@ -143,25 +143,5 @@ span:hover {
 .form-control {
   border-radius: 0.75rem;
 }
-/* Vue audio */
-.icon-stop2,
-.vue-sound__playback-time-wrapper,
-.volume-toggle,
-.icon-paragraph-justify,
-.vue-sound__extern-wrapper {
-  display: none !important;
-}
-
-.icon-play3::before {
-  content: "\EA26" !important;
-  text-decoration: none;
-  
-}
-
-.icon-play3, .icon-pause2{
-  text-decoration: none;
-  color: dimgrey;
-}
-
 
 </style>
