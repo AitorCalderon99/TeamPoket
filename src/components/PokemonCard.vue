@@ -9,7 +9,7 @@ const detalle = await fetch("https://pokeapi.co/api/v2/pokemon/" + id)
       // Poner la primera letra del nombre en mayus
       data.name = data.name.charAt(0).toUpperCase() + data.name.slice(1)
       for (let paso = 0; paso < data.types.length; paso++) {
-        tipos.push("./Tipos/" + data.types[paso].type.name + ".svg")
+        tipos.push("./Tipos/" + data.types[paso].type.name +".svg")
       }
       return data
     })
@@ -18,7 +18,7 @@ const detalle = await fetch("https://pokeapi.co/api/v2/pokemon/" + id)
 
 <template>
   <div class="card">
-    <router-link :to="{name: 'Detalle', params: {id: id}}">
+    <a :href="$router.resolve({name: 'Detalle', params: {id: id}}).href">
       <div class="card-header">
         <span>{{ id }}</span>
         <h1>{{ detalle.name }}</h1>
@@ -31,7 +31,7 @@ const detalle = await fetch("https://pokeapi.co/api/v2/pokemon/" + id)
           <img class="tipos" v-for="tipo in tipos" :key="tipo.slot" :src="tipo" alt="">
         </div>
       </div>
-    </router-link>
+    </a>
   </div>
 </template>
 
@@ -49,7 +49,7 @@ a {
   border: solid 2px #dddddd;
   outline: none;
   width: 20rem;
-  margin: auto;
+  margin: 2em auto;
   transition: 0.1s;
   user-select: none;
 }
