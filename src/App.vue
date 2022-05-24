@@ -31,10 +31,7 @@ const selected = reactive({
 
 function buscar(e) {
   if (e.keyCode === 13) {
-    console.log(state.buscartxt);
     let searchInput = state.buscartxt.toLowerCase();
-    //console.log(filteredList.value);
-
     if (searchInput.length >= 1 && searchInput !== "") {
       var arraycontainsturtles = pokemonsName.some(item => item.name === searchInput);
       if (arraycontainsturtles) {
@@ -42,13 +39,11 @@ function buscar(e) {
 
       }
     }
-    //console.log(filteredList.value);
   }
 }
 
 
 function lupa() {
-  console.log(state.buscartxt);
   let searchInput = state.buscartxt.toLowerCase();
   //console.log(filteredList.value);
 
@@ -64,7 +59,6 @@ function lupa() {
 function searchPokemon(inputName) {
   for (const pokemon in pokemonsName) {
     if (pokemonsName[pokemon].name === inputName) {
-      console.log(pokemonsName[pokemon].id);
       router.push('/'+pokemonsName[pokemon].id);
     }
 

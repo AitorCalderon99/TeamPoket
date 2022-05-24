@@ -21,8 +21,6 @@
                 }
             }
         }).catch((error) => (console.error(error.message)))
-
-        document.getElementById
 </script>
 
 <template>

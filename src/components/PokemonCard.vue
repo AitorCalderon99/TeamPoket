@@ -40,7 +40,6 @@ a {
   text-decoration: none;
   color: black;
   user-select: none;
-
   display: flex;
   flex-flow: column nowrap;
 }

@@ -3,7 +3,7 @@ import Home from "../views/Home.vue";
 import Detalle from "../views/Detalle.vue"
 import NotFound from "../views/NotFound.vue"
 
-var a = "(0|[1-9][0-9]?|898)";
+var a = "([1-9]|[1-9][0-9]|[1-7][0-9]{2}|8[0-8][0-9]|89[0-8])";
 
 const routes = [
   { 
