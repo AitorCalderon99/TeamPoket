@@ -3,6 +3,8 @@ import Home from "../views/Home.vue";
 import Detalle from "../views/Detalle.vue"
 import NotFound from "../views/NotFound.vue"
 
+var a = "(0|[1-9][0-9]?|898)";
+
 const routes = [
   { 
     path: '/:pathMatch(.*)*', 
@@ -15,7 +17,7 @@ const routes = [
     component: Home,
   },
   {
-    path: "/:id(\\d{0,3})",
+    path: "/:id"+a,
     name: "Detalle",
     component: Detalle,
     props: true,
