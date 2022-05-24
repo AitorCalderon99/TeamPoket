@@ -45,8 +45,6 @@ function buscar(e) {
 
 function lupa() {
   let searchInput = state.buscartxt.toLowerCase();
-  //console.log(filteredList.value);
-
   if (searchInput.length >= 1 && searchInput !== "") {
     var arraycontainsturtles = pokemonsName.some(item => item.name === searchInput);
     if (arraycontainsturtles) {
@@ -59,7 +57,7 @@ function lupa() {
 function searchPokemon(inputName) {
   for (const pokemon in pokemonsName) {
     if (pokemonsName[pokemon].name === inputName) {
-      router.push('/'+pokemonsName[pokemon].id);
+      location.replace(`/${pokemonsName[pokemon].id}`);
     }
 
   }
