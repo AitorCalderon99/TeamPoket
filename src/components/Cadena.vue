@@ -22,6 +22,7 @@
             }
         }).catch((error) => (console.error(error.message)))
 
+        document.getElementById
 </script>
 
 <template>
@@ -37,5 +38,9 @@
         display: flex;
         flex-flow: row wrap;
         justify-content: space-between;
+    }
+
+    h1{
+        margin-top: 1em;
     }
 </style>
