@@ -55,7 +55,7 @@ This project is a Pokedex based on the PokeApi official Api, was built as a grou
 This project has been built with Vue3, SASS, Bootstrap and firebase just for deploying.
 
 
-![Vue3](https://img.shields.io/badge/-Vue.js-4fc08d?style=flat&logo=vuedotjs&logoColor=white) [![Bootstrap][Bootstrap.com]][Bootstrap-url] ![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white)
+![Vue3](https://img.shields.io/badge/-Vue.js-4fc08d?style=flat&logo=vuedotjs&logoColor=white) ![SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white) [![Bootstrap][Bootstrap.com]][Bootstrap-url] ![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white)
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
